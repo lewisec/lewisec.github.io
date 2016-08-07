@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DOS攻击,web服务器,拒绝服务攻击," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="经典的DOS有:ICMP flood ，SYN flood，UDP flood，Teardrop attacks ，Spoofing attacks。这里总结一下Web服务器面临的五中应用层的DOS 威胁。主要是介绍基本原理和工具的简单实用方法。每个攻击方法我列出了参考信息链接地址，要深入了解这类攻击的话，建议看看链接地址。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web服务器面临的五种应用层DOS威胁">
+<meta property="og:url" content="http://yoursite.com/2012/06/27/Web服务器面临的五种应用层DOS威胁/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="经典的DOS有:ICMP flood ，SYN flood，UDP flood，Teardrop attacks ，Spoofing attacks。这里总结一下Web服务器面临的五中应用层的DOS 威胁。主要是介绍基本原理和工具的简单实用方法。每个攻击方法我列出了参考信息链接地址，要深入了解这类攻击的话，建议看看链接地址。">
+<meta property="og:updated_time" content="2016-08-07T15:20:28.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web服务器面临的五种应用层DOS威胁">
+<meta name="twitter:description" content="经典的DOS有:ICMP flood ，SYN flood，UDP flood，Teardrop attacks ，Spoofing attacks。这里总结一下Web服务器面临的五中应用层的DOS 威胁。主要是介绍基本原理和工具的简单实用方法。每个攻击方法我列出了参考信息链接地址，要深入了解这类攻击的话，建议看看链接地址。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2012/06/27/Web服务器面临的五种应用层DOS威胁/"/>
+
+  <title> Web服务器面临的五种应用层DOS威胁 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Web服务器面临的五种应用层DOS威胁
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-06-27T10:24:32+08:00" content="2012-06-27">
+              2012-06-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/06/27/Web服务器面临的五种应用层DOS威胁/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/27/Web服务器面临的五种应用层DOS威胁/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经典的DOS有:ICMP flood ，SYN flood，UDP flood，Teardrop attacks ，Spoofing attacks。这里总结一下Web服务器面临的五中应用层的DOS 威胁。主要是介绍基本原理和工具的简单实用方法。每个攻击方法我列出了参考信息链接地址，要深入了解这类攻击的话，建议看看链接地址。</p>
+<a id="more"></a>
+<p>**威胁一slowloris</p>
+<p>原理：HTTP的一个请求包括：</p>
+<p>Request = Request-Line *(( general-header | request-header | entity-header ) CRLF) CRLF [ message-body ]</p>
+<p>例如：</p>
+<p>GET /index.php HTTP 1.1(\r\n)</p>
+<p>HOST: www.site.com (\r\n) (\r\n)</p>
+<p>按照RFC规定，一个正常的HTTP请求是以2个\r\n结束。想想如果发送大量只有一个\r\n的请求，会发生什么样的情况。对，服务器会一直等待，直到超时。等待就会占用一个线程，而服务器的线程使用数量是有上限的，达到上限以后就很难处理新的http请求. 达到拒绝服务的目的。</p>
+<p><strong>攻击方法：</strong> 当然你可以根据自己的理解写程序来来发送这些诡异的HTTP请求。也有现成的工具可以用——Slowloris.pl，地址：<a href="http://ha.ckers.org/slowloris/。" target="_blank" rel="external">http://ha.ckers.org/slowloris/。</a> 为了更好的理解每个输入参数的用法，建议先把连接中的文章先看看。这里举几个例子： 建立500个socket连接，DOS 服务器192.168.1.123的80端口，设置connection的超时时间为200秒。slowloris.pl -dns 192.168.1.123 -port 80 -timeout 200 -num 500</p>
+<p>DOS效果：</p>
+<p>服务器内存使用：略有增加</p>
+<p>服务器CPU使用：正常</p>
+<p>服务器响应：不能响应正常请求</p>
+<p>Netstat命令可以查看到大量的连接，服务器将直接RST消息，拒绝新的连接。</p>
+<p>另外：Slowloris能吃的服务器：Apache 1.x, Apache 2.x, dhttpd。</p>
+<p>Slowloris不能吃的服务器：IIS6.0, IIS7.0, lighttpd, nginx, Cherokee, Squid。如果你运行在windows上，socket的最大连接数可能被限制了，导致dos不成功。</p>
+<p><strong>威胁二:HTTP POST DOS</strong></p>
+<p>原理：向服务器发送POST请求，告诉它将要POST 的数据为n，服务器会开辟长度为n的内存空间等待接收数据。当n足够大，POST请求足够多的时候，这种攻击会吃到服务器大量内存，从而影响服务器性能。</p>
+<p>POST数据包：</p>
+<p>POST /openemr/interface/login/login_frame.php HTTP/1.1</p>
+<p>Host: 10.200.119.198</p>
+<p>User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; Connection: keep-alive Content-Length: 1000000 Content-Type: application/x-www-form-urlencoded</p>
+<p>工具: 明白了原理，方法就变得很简单了，写程序30行代码搞定。</p>
+<p>现成的工具也有：<a href="https://www.owasp.org/index.php/OWASP_HTTP_Post_Tool" target="_blank" rel="external">https://www.owasp.org/index.php/OWASP_HTTP_Post_Tool</a></p>
+<p>DOS效果：服务器内存使用：激增</p>
+<p>服务器CPU使用：激增</p>
+<p>服务器响应：不能响应正常请求</p>
+<p><strong>威胁三：HTTP RANGE DOS</strong></p>
+<p>只需要一个请求数据包就能折腾服务器的一种攻击方式。</p>
+<p>HTTP头字段Range用于文件分段下载。迅雷，PDF在线阅读都使用了这个功能。这个字段也可以被用于DOS服务器。攻击数据包如下：</p>
+<p>HEAD /file.rmvb HTTP/1.1</p>
+<p>Host: www.site.com</p>
+<p>Range: bytes=0-,5-0,5-1,5-2,5-3,5-4,,,,,</p>
+<p>Accept-Encoding: gzip</p>
+<p>Connection: close</p>
+<p>Web服务器收到这个包时，会将file.rmvb文件大量的小片段，然后使用gzip加压下片段。分片后加压过程会消耗服务器大量资源，造成DOS。</p>
+<p>参考：<a href="http://www.secanalyst.org/?p=350" target="_blank" rel="external">http://www.secanalyst.org/?p=350</a></p>
+<p>参考：<a href="http://www.exploit-db.com/exploits/17696/" target="_blank" rel="external">http://www.exploit-db.com/exploits/17696/</a></p>
+<p><strong>威胁四：HTTP Slow Read DOS</strong></p>
+<p>原理：向Web服务器发送正常合法的read请求，比如下载文件。在文件下载时，将TCP滑动窗口size设为1或者2，这样服务器就会以非常缓慢的速度发送文件，文件将长期滞留在服务器内存中，消耗资源，造成DOS。</p>
+<p>工具：<a href="http://code.google.com/p/slowhttptest/" target="_blank" rel="external">http://code.google.com/p/slowhttptest/</a></p>
+<p>参考：<a href="http://www.theinfoboom.com/artic-of-service-attack/" target="_blank" rel="external">http://www.theinfoboom.com/artic-of-service-attack/</a></p>
+<p><strong>威胁五：hash碰撞DOS </strong></p>
+<p>参考：<a href="http://bbs.pediy.com/showthread.php?t=145634" target="_blank" rel="external">http://bbs.pediy.com/showthread.php?t=145634</a></p>
+<p>实验过的朋友可能发现，这个DOS会造成服务CPU利用率100%，但是某些服务器依然能正常响应HTTP请求。原因我目前还没找到，这可能与apache或者php的配置有关。望知道答案的大牛解释</p>
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－分割线－－－－－－－－－－－－－－－－－－－－－－－－－－－</p>
+<p>上述是转载，我以为对应用层的拒绝服务攻击手法介绍的比较清晰了。</p>
+<p>之所以转载这篇文章，是因为在工作中接触到很多IT运维人员和甲方安全运维人员对拒绝服务攻击的认识存在误区。最突出的误区就是，运维人员普遍把拒绝服务攻击等同于“人海战术”，认为DOS攻击就是大流量攻击，只要是DOS或者DDOS攻击发生了，那么一定是超过互联网出口带宽的大流量拥堵过来了，除了等待别无他法。</p>
+<p>举个例子，去年底黑客组织THC发布的针对SSL服务器的DOS攻击工具想必大家都不陌生。根据分析文章显示，这一攻击工具利用的就是SSL协议的漏洞，反复建立与SSL服务器的协商过程，从而消耗靶机的处理资源，达到攻击效果的。当时根据我的亲身测试，一台普通家用PC+2MB的ADSL线路，只需不到十分钟时间就可让一台日本的SSL服务器停止服务，所有网页提示“该页无法显示”。</p>
+<p>窃以为这种消极态度最根本的原因还是在于对攻击原理和手法的不理解造成的。DOS攻击除了使用大流量泛洪攻击以外，还会大量构造特殊攻击数据包，消耗靶机的处理资源（比如CPU资源、内存资源等），从而实现靶机停止对外服务的攻击效果。针对实际遇到的攻击数据包和攻击IP地址进行针对性防御，理应可以起到一定的积极防御效果。由于实际工作中还尚未遇到过DOS攻击的实战，无法进行更切实的分析。</p>
+<p>PS：这篇文章摘自90sec的安全月刊，文中并未提供原作者姓名和原文地址，因此在本篇转载中未能注明。敬请谅解。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DOS攻击/" rel="tag">#DOS攻击</a>
+          
+            <a href="/tags/web服务器/" rel="tag">#web服务器</a>
+          
+            <a href="/tags/拒绝服务攻击/" rel="tag">#拒绝服务攻击</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/06/17/谈谈主动信息安全/" rel="next" title="谈谈主动信息安全">
+                <i class="fa fa-chevron-left"></i> 谈谈主动信息安全
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/07/01/《思科九年》读书笔记之四/" rel="prev" title="《思科九年》读书笔记之四">
+                《思科九年》读书笔记之四 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2012/06/27/Web服务器面临的五种应用层DOS威胁/"
+           data-title="Web服务器面临的五种应用层DOS威胁" data-url="http://yoursite.com/2012/06/27/Web服务器面临的五种应用层DOS威胁/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

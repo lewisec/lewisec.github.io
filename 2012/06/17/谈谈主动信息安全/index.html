@@ -1,0 +1,735 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ISO27001,主动安全,安全管理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="“要建立主动式的信息安全！”
+这句口号不是IT提出的，是年初总裁喊出的响亮口号。他老人家这么一句话，IT可慌了神，究竟该如何解读这个“主动式安全”呢？恐怕这课题够当专题研究研究啦。安全团队为了承接这一任务，启动了年度项目－－主动式安全规划项目。说白了就是寻找适合的顾问资源，为企业设计信息安全体系，以回答这一大命题。具体项目内容和细节，我想可以在我离开这里的那一天，好好聊聊。今天主要说说我对这个口号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈主动信息安全">
+<meta property="og:url" content="http://yoursite.com/2012/06/17/谈谈主动信息安全/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="“要建立主动式的信息安全！”
+这句口号不是IT提出的，是年初总裁喊出的响亮口号。他老人家这么一句话，IT可慌了神，究竟该如何解读这个“主动式安全”呢？恐怕这课题够当专题研究研究啦。安全团队为了承接这一任务，启动了年度项目－－主动式安全规划项目。说白了就是寻找适合的顾问资源，为企业设计信息安全体系，以回答这一大命题。具体项目内容和细节，我想可以在我离开这里的那一天，好好聊聊。今天主要说说我对这个口号">
+<meta property="og:updated_time" content="2016-08-07T14:56:01.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈主动信息安全">
+<meta name="twitter:description" content="“要建立主动式的信息安全！”
+这句口号不是IT提出的，是年初总裁喊出的响亮口号。他老人家这么一句话，IT可慌了神，究竟该如何解读这个“主动式安全”呢？恐怕这课题够当专题研究研究啦。安全团队为了承接这一任务，启动了年度项目－－主动式安全规划项目。说白了就是寻找适合的顾问资源，为企业设计信息安全体系，以回答这一大命题。具体项目内容和细节，我想可以在我离开这里的那一天，好好聊聊。今天主要说说我对这个口号">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2012/06/17/谈谈主动信息安全/"/>
+
+  <title> 谈谈主动信息安全 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                谈谈主动信息安全
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-06-17T17:40:33+08:00" content="2012-06-17">
+              2012-06-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/06/17/谈谈主动信息安全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/17/谈谈主动信息安全/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>“要建立主动式的信息安全！”</p>
+<p>这句口号不是IT提出的，是年初总裁喊出的响亮口号。他老人家这么一句话，IT可慌了神，究竟该如何解读这个“主动式安全”呢？恐怕这课题够当专题研究研究啦。安全团队为了承接这一任务，启动了年度项目－－主动式安全规划项目。说白了就是寻找适合的顾问资源，为企业设计信息安全体系，以回答这一大命题。具体项目内容和细节，我想可以在我离开这里的那一天，好好聊聊。今天主要说说我对这个口号的解读吧。</p>
+<a id="more"></a>
+<p>主动安全，对应的就是被动安全。这个被动，指的不光是安全管理和安全技术的滞后造成的被动，我想，肯定也包含了各级管理层被层出不穷的安全事件（甚至是泄密事件）搞的焦头烂额的被动。在制造型企业里，即便经历了过往多年的投资建设，信息安全仍旧以安全事件为主要驱动力。管理层对当前安全现状的认知来自于定期发布的审计报告，对危险程度的判断来自于报告中一个个违规事件后果的判断。员工对于信息安全的了解，也都是围绕周边同事一个个被通报被罚款的处罚措施。尽管这条高压红线早已深入人心，但常年的恐怖震慑已不能达到上层要求，员工们也开始逐步麻木并且纷纷抱怨。他们可以抱怨安全规则繁杂不清，可以指责IT部门影响了办公效率，可以声讨用户体验太差耽误了生产甚至销售活动。这些抱怨再反馈至管理层后，IT受夹板气的命运也就顺理成章啦。</p>
+<p>有了这样对被动安全的解读，那主动安全的边界似乎也开始逐步明了。</p>
+<p>从技术上，首先必须搭建科学合理的技术架构。</p>
+<p>这一架构可以来自于某个安全标准或规范，也可来源于外部企业的成功经验，总之，需要有这样一套技术架构，用于指导未来几年的技术引入。这一架构的合理与否，先进与否，将直接决定了两点：1.未来新技术引入的方向以及路线图；2，老板是否愿意继续投资以及每年的投资额度是多少。</p>
+<p>主动的设计技术架构，是对主动安全的第一步解读。那技术架构中的具体技术设计，则进一步解读了主动安全。</p>
+<p>细说来，这一架构必不可少要包括以下方面：</p>
+<p>1.严密的统一身份认证机制，科学的授权技术。从身份认证和授权控制着手，可以有效预防机密信息的非授权访问，将安全事件扼杀在摇篮中，同时保证员工无意间的数据访问和使用，不会引发泄密事件。</p>
+<p>2.内容感知和分析技术、DLP技术的引入，可以保证机密数据被第一时间识别并且保护，重要文件的流转使用出于严密而又有效的监控之下。制造型企业中老板关心的是什么？无外乎技术图纸、设计方案、财务报表、客户信息等等这些文件和数据。保护好了这些，才是让老板彻底放心的关键。</p>
+<p>3.先进的监控审计技术，确保安全管理从事后被动的审计发现、对已成型的安全事件处理，转变成每日实时监控。这一扭转是至关重要的，很多时候往往是安全团队发现太晚、介入太晚，小事件变成了大事件，大事件造成了大泄密。</p>
+<p>整体来看，技术架构其实是一个矩阵：纵轴是服务器、网络、传输设备、用户终端、机密数据几个层次，华为解读成了“云、管、端”三个词，具有一定道理。这个纵轴其实是安全需要管理的具体内容：除了需要管理机密数据，还需要管理承载机密数据的各层IT设施。</p>
+<p>横轴呢，则是安全管理传统意义上的生命周期：授权、访问、保存、流转、归档、销毁等等，从这些方面下手，对纵轴的各项内容设计保护措施，这样的矩阵更加全面，确保无一遗漏。</p>
+<p>说完了技术，再谈谈管理。</p>
+<p>一说到信息安全管理，恐怕大家都会想到ISO27000，想到等级保护，这些标准有人称之为刻板，也有人奉为圣经。我的看法是，在没有自发设计更合理的管理机制前，引经据典没什么错。至少，每人敢说自己会比行业专家多年积累下来的经验沉淀更为全面和科学吧？比如，被广为诟病的ISO27001，其实是对安全如何管理设计了一套可以落地的PDCA机制，除了ISO27001，似乎再也找不到更为合适的工具做这件事啦。</p>
+<p>话说回来，标准是死的，人是活的。在没有硬性的合规要求情况下，ISO27000更适合被拿来作为参考依据，设计符合自己的管理体系。</p>
+<p>管理的核心无外乎是管人，那首先就必须让人知道什么是可以做的，什么是不能做的。把这一边界描述清楚并且宣贯到位，是主动安全管理的第一步。由此可见，设计一套全面而且可落地的安全制度规范是绕不开的。为了避免安全制度被束之高阁，配套设计对应的用户行为指南必不可缺！</p>
+<p>主动安全管理的第二点，是设计并有效执行一套科学的风险评估机制。安全管理的核心是风险管理，而不是以往的安全事件管理。这是思维观念上由被动转为主动的关键举措。优先发现风险和威胁，要远好于优先发现员工违规和泄密事件。</p>
+<p>第三点，安全不应是IT一个团队的职责，理应把各个业务体系拉下水。也只有业务体系自己，才能时刻把握清楚什么是自己体系当前最关键的信息资产，什么是最核心的业务流程。安全不与业务深度绑定，永远只能称为浮在水面上的莲花，美丽但不实际。因此，设计一套职责清晰、权力分明的协同机制也是不可或缺的。在各个业务部门寻找代言人，认准第一责任人，这项工作才能实际的开展。配套的考核机制、KPI的设计和绩效考核内容，可以确保工作质量。</p>
+<p>最后，安全离不开宣传和教育。面对全公司几万人的人海，几十个人的IT团队显然力不从心。安全的高级境界是人人都有安全意识。当员工自己准确的认识到了风险，知道行为的合规与否，安全才可以无为而治。</p>
+<p>洋洋洒洒罗嗦了这么多，是对自己思考过程的总结，肯定有不全面不准确的地方，欢迎拍砖指导。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ISO27001/" rel="tag">#ISO27001</a>
+          
+            <a href="/tags/主动安全/" rel="tag">#主动安全</a>
+          
+            <a href="/tags/安全管理/" rel="tag">#安全管理</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/06/17/《思科九年》读书笔记之三/" rel="next" title="《思科九年》读书笔记之三">
+                <i class="fa fa-chevron-left"></i> 《思科九年》读书笔记之三
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/06/27/Web服务器面临的五种应用层DOS威胁/" rel="prev" title="Web服务器面临的五种应用层DOS威胁">
+                Web服务器面临的五种应用层DOS威胁 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2012/06/17/谈谈主动信息安全/"
+           data-title="谈谈主动信息安全" data-url="http://yoursite.com/2012/06/17/谈谈主动信息安全/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

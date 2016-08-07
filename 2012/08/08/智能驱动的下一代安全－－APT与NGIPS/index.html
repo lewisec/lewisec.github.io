@@ -1,0 +1,732 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="APT,NGIPS,下一代防火墙," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="今天读到了绿盟科技发布的2012年第7期技术内刊，其中赵粮博士的一篇《智能驱动的下一代安全》让我受益匪浅，摘录最有营养的一部分与各位分享。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能驱动的下一代安全－－APT与NGIPS">
+<meta property="og:url" content="http://yoursite.com/2012/08/08/智能驱动的下一代安全－－APT与NGIPS/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="今天读到了绿盟科技发布的2012年第7期技术内刊，其中赵粮博士的一篇《智能驱动的下一代安全》让我受益匪浅，摘录最有营养的一部分与各位分享。">
+<meta property="og:updated_time" content="2016-08-07T14:31:03.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="智能驱动的下一代安全－－APT与NGIPS">
+<meta name="twitter:description" content="今天读到了绿盟科技发布的2012年第7期技术内刊，其中赵粮博士的一篇《智能驱动的下一代安全》让我受益匪浅，摘录最有营养的一部分与各位分享。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2012/08/08/智能驱动的下一代安全－－APT与NGIPS/"/>
+
+  <title> 智能驱动的下一代安全－－APT与NGIPS | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                智能驱动的下一代安全－－APT与NGIPS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-08-08T02:40:03+08:00" content="2012-08-08">
+              2012-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/08/08/智能驱动的下一代安全－－APT与NGIPS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/08/智能驱动的下一代安全－－APT与NGIPS/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天读到了绿盟科技发布的2012年第7期技术内刊，其中赵粮博士的一篇《智能驱动的下一代安全》让我受益匪浅，摘录最有营养的一部分与各位分享。</p>
+<a id="more"></a>
+<p>在这篇文章的开始部分，赵粮博士首先从RSA2012大会谈起，着重阐述了对APT攻击的看法，APT的主要特点为：</p>
+<p>-高级：攻击手段更高级，攻击工具更先进；</p>
+<p>-持久：攻击者为达最终目的，不会轻易放弃，通过持续监测和不断尝试，最终达到攻击目的；</p>
+<p>-威胁：发动APT攻击的大多为一个团队或组织，并非盲目的自动化攻击；</p>
+<p>从这些特点来看，以传统安全技术来对抗APT明显吃力。RSA2012传递出的重要声音就是对智能驱动的安全尤为期盼。</p>
+<p>具体说来，赵博士分析智能驱动的安全应包括如下方面：</p>
+<p>1.基于深度分析的态势感知。也即，需要对网络流量、应用数据、代码等因素综合分析，深入分析，从而识别攻击行为。</p>
+<p>我的一点看法：安全行业其实一直都在做类似的努力，比如各家安全网关产品都会把精力放在DPI上，通过对数据包的深度识别和分析，从而更精准的找出威胁。不过，由于APT攻击的多样性和隐蔽性，只对网络流量做DPI是远远不够的。APT攻击使用到的高级后门、Rookit，攻击得手后的信息资产外泄，都必须而且只能通过关联的、深入的识别分析，才能从企业海量网络流量中识别出来，并进行防御。单纯的在网关做DPI或者单纯的在终端上通过杀毒软件的深入分析，都是不够的，也许这也正是最近一段时间DLP产品越来越热的原因吧。</p>
+<p>2.基于安全信誉系统的异常检测。</p>
+<p>赵博士针对异常检测技术的未来发展方向描述为：“传统的异常检测在理念上基于攻击特征或模式匹配的，采用单纯黑名单（例如传统的入侵防御系统）或单纯白名单( 例如防火墙)规则的判断，这种判断的简单性与现实世界的复杂性是不相符的。智能化检测的指导思想是采用基于实体信誉的黑白互补的灰度判断，即对实体行为采用黑白名单相互补充的检测，并根据实体行为计算其安全信誉值的高低，进而以更细的粒度标识“异常度”或赋予不同的业务权限”</p>
+<p>这一段文字的含金量实在是高。</p>
+<p>防火墙的设计理念是“可信的才会放过”，但往往攻击行为就伪装或隐藏在这些可信的访问中，比如SQL注入会混在正常的web访问行为中。</p>
+<p>而IPS的理念是“识别出来的威胁必须阻拦”，但往往依赖于设备的识别能力，也即特征库。被动的识别方式永远跟在攻击行为的屁股后头跑，而且为了降低对业务的影响，IPS大多不会设置的太过严苛，漏报在所难免。</p>
+<p>因此这两种理念是从一个极端走向了另一个极端，处理常见的普通攻击问题不大，一旦面对APT，基本会坐以待毙。</p>
+<p>其实对攻击行为的识别技术，可以类比杀毒软件的发展道路。回想一下，杀毒软件最近两年的恶意代码检测技术，用的最多的应该是“启发式”检测技术了吧。把可疑代码放在一个封闭环境下模拟运行，通过代码的实际行为判断是否有害。这可比被动的对比特征码先进一些啦。赵博士提到的“根据实体行为计算其安全信誉值”，我理解为就是入侵防御检测的“启发式扫描”，应该可以有效降低漏报行为。唯一需要担心的就是检测设备的性能是否可以满足大流量环境下的吞吐和延时。</p>
+<p>3.基于自动部署的攻击防护。</p>
+<p>这个没什么好说的，从最早的IDS时代，大家就在喊着“关联”和“联动”。识别到攻击以后，最好可以让设备自主学习并且自主修改防御策略，无需管理员手动干预，这样可以大大提高防御及时性。只不过，如何平衡关联及时度和误报，是这类技术的重中之重。</p>
+<p>最近几乎各家安全厂商都在念叨“下一代”这个字眼，从下一代防火墙，到下一代IPS，做为甲方基本处于“乱花渐欲迷人眼”的迷糊状态，新概念很多，可真正有新意的技术并没有看到。所谓“应用识别”、“用户感知”等等概念，在我理解只不过是又一次的炒冷饭，几年以前大家不都在拿应用层说事儿么？可实际产品并没有给用户带来实际的明显效益，下一代这个词，最好还是谨慎为好。</p>
+<p>但赵粮博士这篇文章，从威胁识别到自动化攻击防护，再到海量日志分析，基本上沿着攻击防御的生命周期都进行了未来技术展望，我相信在这种思路指导下产生的产品，的确是与现有防御设备完全不同的产品，称之为“下一代”毫不过分。</p>
+<p>期待新的技术和新的产品，可以给用户带来切实的防护效果！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/APT/" rel="tag">#APT</a>
+          
+            <a href="/tags/NGIPS/" rel="tag">#NGIPS</a>
+          
+            <a href="/tags/下一代防火墙/" rel="tag">#下一代防火墙</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/08/01/触电Nessus/" rel="next" title="触电Nessus">
+                <i class="fa fa-chevron-left"></i> 触电Nessus
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/08/27/几个密码破解器/" rel="prev" title="几个密码破解器">
+                几个密码破解器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2012/08/08/智能驱动的下一代安全－－APT与NGIPS/"
+           data-title="智能驱动的下一代安全－－APT与NGIPS" data-url="http://yoursite.com/2012/08/08/智能驱动的下一代安全－－APT与NGIPS/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

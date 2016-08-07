@@ -1,0 +1,844 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Fortinet,Gartner,Imperva,waf,魔力象限," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="工作原因，最近开始研究主流市场的各类WAF产品。Gartner的魔力象限分析是必不可少的重要材料。节选了部分2015年度WAF领域的报告翻译了出来，给自己存个档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gartner WAF 2015 魔力象限节选翻译">
+<meta property="og:url" content="http://yoursite.com/2016/02/02/Gartner WAF 2015 魔力象限节选翻译/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="工作原因，最近开始研究主流市场的各类WAF产品。Gartner的魔力象限分析是必不可少的重要材料。节选了部分2015年度WAF领域的报告翻译了出来，给自己存个档。">
+<meta property="og:image" content="http://ob7tq8bas.bkt.clouddn.com/waf-gartner-2015.jpg">
+<meta property="og:updated_time" content="2016-08-07T14:59:25.877Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gartner WAF 2015 魔力象限节选翻译">
+<meta name="twitter:description" content="工作原因，最近开始研究主流市场的各类WAF产品。Gartner的魔力象限分析是必不可少的重要材料。节选了部分2015年度WAF领域的报告翻译了出来，给自己存个档。">
+<meta name="twitter:image" content="http://ob7tq8bas.bkt.clouddn.com/waf-gartner-2015.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/02/Gartner WAF 2015 魔力象限节选翻译/"/>
+
+  <title> Gartner WAF 2015 魔力象限节选翻译 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gartner WAF 2015 魔力象限节选翻译
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-02T12:05:15+08:00" content="2016-02-02">
+              2016-02-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/02/Gartner WAF 2015 魔力象限节选翻译/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/02/Gartner WAF 2015 魔力象限节选翻译/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>工作原因，最近开始研究主流市场的各类WAF产品。Gartner的魔力象限分析是必不可少的重要材料。节选了部分2015年度WAF领域的报告翻译了出来，给自己存个档。</p>
+<a id="more"></a>
+<p>—————————分割线————————————–</p>
+<p>waf市场被用户需求驱动，用户需要保护内部和公开的web应用，在web应用本地部署或者远程部署。waf部署在web服务器前面用来保护web应用，对抗内外部攻击者。也可以部署为镜像模式，收集访问日志用于合规审计和分析。waf常见的部署方式是以反向代理的方式串联在网络，因为在历史上这是唯一可以做深度检查的方式。现在，其他部署方式也存在了，比如透明代理、桥模式，或者把waf部署在旁路（带外管理或者镜像模式）。</p>
+<p>waf最大的优势是保护企业的web应用免遭由自身代码漏洞造成的缺陷。第二，waf可以与其他应用安全和网络安全技术相集成，比如和应用安全测试（AST）、抗DDOS攻击、web诈骗检测、数据库安全。除此之外，waf有时还包含应用交付功能，包括内容缓存。当waf包含web访问管理模块时，还可以包含身份认证管理特性，比如实现单点登录或web应用分发。</p>
+<p>在这个魔力象限中，供应商必须是面向终端用户的waf市场供应者。技术必须包含特定针对web安全保护，超过使用特征匹配的下一代防火墙和ips。waf产品应该支持单一或多台web服务器部署方式。这个魔力象限包含的waf，都是部署在webserver前端的设备，不是webserver插件的方式。包含：</p>
+<p>-物理部署设备，虚拟机形态或者软件形态<br>-waf必须深入应用层控制<br>-云服务或虚拟化支持，以IaaS平台形式<br>waf与其他企业安全技术–比如应用安全测试、数据库镜像、SIEM–相集成的能力经常是企业市场中的强劲存在。像ADCs或抗DDoS云服务这类技术，巩固了waf并带来了特殊收益，但是市场还是首先关注客户的web安全需求。尤其重要的是：</p>
+<p>-对已知与未知威胁的最大限度的检测和拦截率<br>-最小的误报率，不影响web应用的连续服务<br>-高易用性<br>特别的，Gartner仔细检查了这些特性和创新保护能力，超出下一代防火墙和ips，开源waf比如modsecurity和ironbee。</p>
+<p><img src="http://ob7tq8bas.bkt.clouddn.com/waf-gartner-2015.jpg" alt="" title="gartner"></p>
+<p>供应商优劣势分析<br>梭子鱼</p>
+<p>位于加州Campbell市，梭子鱼提供多种信息安全产品。梭子鱼的WAF有三种主要的特性：10种应用模式（5种核心模式，每种包含两个版本）最高可达4Gbps吞吐；可虚拟化；可部署在微软Azure、AWS、vCloud等云计算平台。</p>
+<p>过去几个月中，梭子鱼完成支持JSON检测，URL编码，SAML2.0并升级了WAF的管理控制台。</p>
+<p>梭子鱼被评价为挑战者，因为产品价格实惠，且效果良好。</p>
+<p>优势</p>
+<ul>
+<li>梭子鱼产品线很广，而且是唯一一家供应商提供Azure和vCloud平台WAF。</li>
+<li>梭子鱼的waf提供强壮的IP信誉库，cookie保护和客户端指纹识别。它还内嵌了认证功能并整合了一些第三方认证解决方案。</li>
+<li>梭子鱼为客户提供高级别的地域分散的支持能力，并提供免费的可用性评估服务，四年的设备升级服务。</li>
+<li><p>梭子鱼的管理界面提供多种不通语言，包括很多种欧洲语言，并且还有普通话、广东话、日语、韩语。这是其他供应商不具备的优势<br>劣势</p>
+</li>
+<li><p>Gartner研究发现梭子鱼的管理界面易用性较差。梭子鱼WAF的管理界面升级到V7.9之后，我们还没有收到客户反馈。</p>
+</li>
+<li>梭子鱼WAF在安全自动化方面落后于领导者厂商。漏洞扫描的结果必须手动导入。当应用改变后，自动学习默认是禁用的，而必须手动激活。</li>
+<li>Gartner注意到商业客户候选名单很少提及梭子鱼WAf，而是在WAF升级时被考虑。</li>
+<li>目前还没有5Gbps或10Gbps的模型用以支持商业客户案例。</li>
+</ul>
+<p>安恒</p>
+<p>安恒，总部位于中国杭州，为web安全和数据库安全提供解决方案。2007年第一款WAF产品发布。同时提供web应用和数据库漏洞扫描，和一款数据库审计平台。<br>在2014年，安恒升级了硬件产品线，发布了四个模型，发布了WAF v4.0<br>安恒被评为“特定领域者”，因为安恒只在中国范围内面向中端市场出售WAF解决方案。<br>在中国，安恒是中小企业，小型金融和政府部门的不错候选品牌。</p>
+<p>优势</p>
+<ul>
+<li>安恒waf包含自学习策略和web应用缓存，可部署为反向代理、透明代理或镜像模式。</li>
+<li>客户提到选择安恒的原因是不错的价格和本地化服务。</li>
+<li><p>安恒的waf可以和供应商的漏洞扫描、数据库安全产品相联动。<br>劣势</p>
+</li>
+<li><p>安恒的WAF在以下几个领域落后于竞争对手：基于角色的管理、详细的活动报告、身份认证管理。客户提到管理功能和报告功能还需要提升。</p>
+</li>
+<li>安恒的市场知名度非常有限，在中国以外的客户并没有把它列入候选名单。安恒主要服务于中小企业。</li>
+<li>安恒没有向Gartner提供自己的国际化客户和增值分销商。在公司官网的国际版上仅有非常有限的信息。中国以外的潜在客户在考虑安恒WAF时会要求有同行业案例，并核查供应商与渠道的经验，购买前还会进行设备测试。</li>
+<li>安恒的战略核心聚焦在漏洞扫描。WAF最近的升级和路线路是很有限的边际改善。</li>
+</ul>
+<p>F5<br>总部位于西雅图的F5是一家聚焦在应用交付领域的基础设施供应商。WAF是作为F5的big-ip应用交付平台的一个软件模块存在的，叫做ASM。经常作为F5的最佳实践组合包的一部分出售。F5其他安全模块包含网络防火墙AFM，接入策略管理APM、以及最近的Web安全网关服务和Web安全网络欺诈保护服务。WAF也在虚拟化版本的big-ip上可以部署使用。WAF是以授权控制的。<br>2014年，F5发布了一些新的WAf模块，提供了新的提醒，包含抗ddos服务。2015年上半年，还提供了云计算版本的waf服务。<br>F5被评为”挑战者“。当F5试着移动到”领导者“象限时取得了非常有限的成功。这是一家不错的候选供应商，尤其是对那些看重攻击识别的且已经拥有或正在考虑应用交付设备的大型组织来说。</p>
+<p>优势</p>
+<ul>
+<li>接受调查的客户列出，最大优势是可以把ASM这款waf与F5的应用交付或其他产品相集成。很多Gartner的客户报告称，ASM WAF已经在影响他们选择应用交付产品时的决策。</li>
+<li>F5的合作团队与渠道提供了良好的服务支持，相比主要的WAF供应商，地域覆盖更广。</li>
+<li>ASM WAF使用相同的管理软件，F5的管理员会非常熟悉。客户还可以使用iRules脚本设定策略。</li>
+<li>F5已经在添加一些WAF的新特性，包括对报警评分。</li>
+<li><p>作为应用交付的领导级供应商，F5拥有大量保有客户，并利用应用交付销售机会作为WAF产品的销售切入点。对已经购买F5的客户，在已有的安全平台上添加一个WAF模块是容易的。<br>劣势</p>
+</li>
+<li><p>用户报告初始化配置和策略设定方面难度很大。在设备重启后，历史报告和自动策略很难维持原状。一些Gartner客户评论说ASM WAF还是很有挑战性的。</p>
+</li>
+<li>和其他应用交付为基础的waf一样，F5的waf客户认为waf是作为应用交付的一个扩展属性部署为反向代理模式。这些在F5与纯粹的WAf相比时处于劣势。</li>
+<li>一些增值分销商也将F5作为他们的增值包中的纯粹防火墙。客户当要考虑F5时，需要寻找一个对产品足够熟悉的合作伙伴。</li>
+</ul>
+<p>Fortinet<br>坐落于加州森尼维尔市的飞塔公司，是一家重要的网络安全厂商。2000年，飞塔作为UTM供应商出现。稍后就扩展了自己的产品线，包含了更多的安全产品，比如WAF（Fortiweb，发布于2008年），应用交付（FortiADC），数据库保护平台。这家公司以其飞塔安全网关而著名，这也是他最有活力的产品线。</p>
+<p>飞塔提供了多种产品形态，比如物理形态，或虚拟化形态。都可以部署在反向代理、透明代理，旁路模式。还可以部署在AWS上。功能上包含有ip信誉，反病毒和安全特征升级。</p>
+<p>在过去的一年半里，飞塔发布了四次升级（v5.1到v5.4），为知名的web应用添加了模板，支持完全正向保密，支持与SIEM集成。公司还发布了一款入门级产品，FortiWeb 100D，并且还刷新了高端产品序列。</p>
+<p>飞塔被评为”特定领域者“，尽管公司有强大的渠道，但是他们的waf解决方案并没有取得商业市场的成功。公司现有的客户和中小组织应该被飞塔认为是潜在客户。</p>
+<p>优势</p>
+<ul>
+<li>良好的声誉，有竞争力的价格，飞塔其他产品的认可度，都是选择飞塔waf的理由。</li>
+<li>飞塔使用硬件设备实现SSL加解密加速。产品性能的文档非常直接，每种部署方式飞塔的渠道都有详细帮助。</li>
+<li>客户购买飞塔waf往往是用他的反病毒引擎检测文件共享服务上的恶意软件。Gartner预计，集成沙箱后会进一步提高这种使用场景的实用性。</li>
+<li>飞塔包含完整的漏洞扫描，带外管理模式，相当数量的预定义报告模板。</li>
+<li><p>飞塔还有一系列不错的特性，比如自动学习模式，ip信誉，cookie标记，SSL加速，web应用缓存，机器人识别。<br>劣势</p>
+</li>
+<li><p>相较于安全网关，waf只是飞塔的二级产品，渠道销售的积极程度并不高。Gartner认为，本地技术技能可用性比那些与网络防火墙要可怕。</p>
+</li>
+<li>客户反馈在普通环境中部署waf后需要很长时间来调整，以避免误报。</li>
+<li>飞塔并没有在他们的应用交付产品中提供WAF功能。也没有在云服务中提供waf功能。对于安全意识较强的组织，厂商并没有提供硬件安全模块集成或基于云的ddos防护。</li>
+<li>waf与其他飞塔产品的集成也很有限，除了统一的日志分析模块外，这对于飞塔客户来说限制了收益。</li>
+<li>飞塔的waf大多出现在为满足合规要求时。</li>
+</ul>
+<p>Imperva<br>英普华位于加州，拥有很长的WAF产品线。其他产品聚焦在数据安全，例如数据库审计、数据库防火墙，文件监控，应用层DDOS防护，云计算保护。还有两个包用于安全监控和管理。</p>
+<p>早期英普华产品以透明桥方式部署。这与企业保持一致，因为这种部署方式更容易被应用在应用交付产品之后，而不引入第二级代理，而且产品测试时更容易。其他竞争对手被收购或消失，英普华在这个领域持续增长。</p>
+<p>英普华Incapsula是基于云计算的waf，被集成在其他服务中，比如DDOS防护。ThreatRadar是附加订阅服务，包含四种功能：信誉库，反僵尸，反欺诈，社区防御。以虚拟化应用的形式可以在AWS上部署waf，七层流量高达10Gbps。物理形态和虚拟化形态都可提供专用管理。</p>
+<p>Gartner看到英普华WAF很棒的攻击检出率，厂商还提供了良好的第三方生态系统，包含DLP，反欺诈，SIEM和漏洞扫描。</p>
+<p>英普华被评为”领导者“，他们的安全特性和创新处于领先水平，价格方面与竞争对手不相上下。英普华对于各个级别的组织都是非常好的候选厂商，尤其是高安全级别要求的客户，或者寻找易部署、基于云的waf的客户。</p>
+<p>优势</p>
+<ul>
+<li>Gartner看到英普华一贯得分很高表现亮眼，以高效率防护，良好的报告，而不是检测率，在Gartner的客户中赢得了出色评价。在售后服务方面，客户反馈也很好。</li>
+<li>英普华持续领跑WAF市场，发布新的功能，迫使竞争对手跟随作出反应。这还包括一些防护效果更好的高级技术，这是竞争对手所不具备的。因此，当你需要寻找与应用交付不同供应商，且对防护效果非常看重时，这是一家很好的备选供应商。而有些客户使用英普华的“manager of manager”选项，这也说明产品曾部署在大型案例中。</li>
+<li>供应商一直在努力且有效的传达一种讯息，WAF可以用来响应数据中心的应用层威胁状态，例如集成 Incapsula WAF 和Skyfence CASB实现。英普华在对web攻击的研究与威胁报告方面一直做的非常棒。</li>
+<li>通过waf即服务的Incapsula，和本地部署的SecureSphere，英普华在商业客户和中小客户中占据了大量市场。当客户的应用安全需要改变时，这也为他们提供了一个新的选择：英普华。</li>
+<li><p>英普华本地部署的waf，在客户的评价非常好，因此也在以此对抗云端waf。<br>劣势</p>
+</li>
+<li><p>作为优质商业产品，英普华通常对于中小客户和部署waf只为应对合规检查的项目来说太高端了。而价格是客户选择其他waf解决方案的主要原因。当有应用交付类厂商参与竞争时，这一点尤其如此。</p>
+</li>
+<li>尽管英普华在安全能力上被评为得分最高，英普华仍然面对来自应用交付类厂商最多的竞争。而他们往往已经在客户那里成功部署了一些产品，只需再买一个授权key就能实现waf的功能。这类客户并不愿为此多花一大笔钱。</li>
+<li>英普华的渠道与销售团队经常相客户兜售数据库安全集成解决方案，这给客户们带来了一定压力，这也会造成web安全项目总价过高。同时，由于需要不断与数据和网络相关人员讨论并展示一些收益，这也延长了采购周期。</li>
+<li>客户反馈偶尔管理控制台会失效，尤其是部署了应用集群时。</li>
+<li>英普华目前只支持aws一个云计算平台，而其他竞争对手往往支持更多的云平台。</li>
+</ul>
+<p>绿盟科技<br>绿盟是一家中国北京的公司，起步于2000年，最早提供抗DDOS解决方案。后来延伸了产品线，包含IPS，漏洞扫描。waf最早发布于2007年。可以物理设备或虚拟化版本交付，可部署为反向代理、透明代理模式，支持带外管理。绿盟同时提供了一套集中管理软件，用于管理waf产品。</p>
+<p>供应商最近宣布支持IPv6，并发布面向中端市场的高端waf产品。</p>
+<p>绿盟被评为“特定领域者”，他们市场聚焦在亚太地区。对于中国的大中小型客户，和已购买绿盟产品的客户来说，这是一家不错的备选供应商。</p>
+<p>优势</p>
+<ul>
+<li>客户选择绿盟的waf，经常反馈他们有竞争力的价格和性能，尤其是低延迟，这是有决定性的因素。绿盟最近专门为日本客户新增了一种区域性GUI界面。</li>
+<li>当检测到网络拥塞时，waf可以把入站流量重定向到绿盟的抗DDOS设备过滤后再回流。</li>
+<li>waf拥有很不错的本地与全球产品认证，包括ICSA实验室的waf认证。</li>
+<li><p>waf可以和她们家自己的漏洞扫描产品集成。<br>劣势</p>
+</li>
+<li><p>在中国以外区域，绿盟知名度较低。他的国际渠道的技术投资仍旧落后于其他产品。这也限制了当地技术能力的支持。</p>
+</li>
+<li>在一些企业级功能上，绿盟的waf一直落后于“领导者”级别的企业。比如有限的基于角色的管理，主主集群也限定为两台设备，没有ssl加速。</li>
+<li>绿盟的waf不提供身份认证功能。</li>
+<li>客户反馈自学习功能本可以更容易微调的。</li>
+<li>虽然绿盟的waf可以与自家的漏洞扫描集成，但是，目前为止并不能与其他第三方SIEM或者漏洞扫描集成。</li>
+</ul>
+<p>Radware</p>
+<p>radware是一家以色列特拉维夫的公司，主要提供应用交付和安全产品。他们的安全产品包含混合型DDOS防护工具（DefensePro），ddos保护虚拟设备（DefenseFlow），ddos保护管理服务（DefensePipe）和waf。产品可以单独购买，也可以与AMS集成在一起。他们的waf发布与2010年。可以物理设备或虚拟机形态提供。产品可以集中管理，监控与报告解决方案。</p>
+<p>自从2014年，radware并没有为waf发布新的型号。他们提供更新的服务，包括基于云的全面管理和WAF的内部部署全面管理WAF服务。同时提供waf的带外管理部署方式。</p>
+<p>Gartner评价radware为“特定领域者”，因为他们尽管最近很努力，仍然是服务于大中型企业客户。</p>
+<p>优势</p>
+<ul>
+<li>在其他的部署方案，AppWall可在透明网桥模式，同时提供反向代理功能，以特定的流量进行部署。通过自学习功能，waf很容易部署，而且无需修改网络配置。</li>
+<li>选择他们的主要两个原因，一是价格，二是考察客户安全性。</li>
+<li>radware的waf控制台包含强大的多租户功能，并集成了认证与单点登录模块。</li>
+<li><p>在过去三年中，他们坚持自己的路线图在反战，相比这一象限其他供应商来说，他们展示了坚定的承诺与执行力。<br>劣势</p>
+</li>
+<li><p>不能与第三方漏洞扫描和数据库安全解决方案相集成。</p>
+</li>
+<li>waf仍旧是应用交付平台的一个模块，与其他竞争对手来说这是个劣势。</li>
+<li>知名度较低，只在很少的几个客户中提到。</li>
+</ul>
+<p>——————-分割线—————</p>
+<p>最后附上报告英文原文：<a href="http://ob7tq8bas.bkt.clouddn.com/Magic%20Quadrant%20for%20Web%20Application%20Firewalls.mht" target="_blank" rel="external">点击下载</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Fortinet/" rel="tag">#Fortinet</a>
+          
+            <a href="/tags/Gartner/" rel="tag">#Gartner</a>
+          
+            <a href="/tags/Imperva/" rel="tag">#Imperva</a>
+          
+            <a href="/tags/waf/" rel="tag">#waf</a>
+          
+            <a href="/tags/魔力象限/" rel="tag">#魔力象限</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/09/my2015/" rel="next" title="盘点2015">
+                <i class="fa fa-chevron-left"></i> 盘点2015
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/21/webgoatdvwa/" rel="prev" title="搭建WebGoat和DVWA">
+                搭建WebGoat和DVWA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/02/Gartner WAF 2015 魔力象限节选翻译/"
+           data-title="Gartner WAF 2015 魔力象限节选翻译" data-url="http://yoursite.com/2016/02/02/Gartner WAF 2015 魔力象限节选翻译/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

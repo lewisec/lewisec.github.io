@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="《白帽子讲Web安全》这本书，是我在2012年买的，等我读完的时候，差不多两年过去了，这一点真心惭愧。工作的时候想看，但领导一看到我在看书就给我安排活儿，怕我一直看书对眼睛不好吧。在家的闲散时间把前四章看完之后就搁置了，期间翻越了《Web之困》和《Web前端黑客技术揭秘》，发觉还是这本《白帽子》讲的更浅显也更全面，就又开始从头细细的看。
+虽说这本书浅显，但不适合没有网络安全基础或web编程基础的人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终于读完了《白帽子讲Web安全》">
+<meta property="og:url" content="http://yoursite.com/2014/03/29/whitehat-web-sec/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="《白帽子讲Web安全》这本书，是我在2012年买的，等我读完的时候，差不多两年过去了，这一点真心惭愧。工作的时候想看，但领导一看到我在看书就给我安排活儿，怕我一直看书对眼睛不好吧。在家的闲散时间把前四章看完之后就搁置了，期间翻越了《Web之困》和《Web前端黑客技术揭秘》，发觉还是这本《白帽子》讲的更浅显也更全面，就又开始从头细细的看。
+虽说这本书浅显，但不适合没有网络安全基础或web编程基础的人">
+<meta property="og:updated_time" content="2016-08-07T15:21:19.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="终于读完了《白帽子讲Web安全》">
+<meta name="twitter:description" content="《白帽子讲Web安全》这本书，是我在2012年买的，等我读完的时候，差不多两年过去了，这一点真心惭愧。工作的时候想看，但领导一看到我在看书就给我安排活儿，怕我一直看书对眼睛不好吧。在家的闲散时间把前四章看完之后就搁置了，期间翻越了《Web之困》和《Web前端黑客技术揭秘》，发觉还是这本《白帽子》讲的更浅显也更全面，就又开始从头细细的看。
+虽说这本书浅显，但不适合没有网络安全基础或web编程基础的人">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/03/29/whitehat-web-sec/"/>
+
+  <title> 终于读完了《白帽子讲Web安全》 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                终于读完了《白帽子讲Web安全》
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-03-29T14:53:21+08:00" content="2014-03-29">
+              2014-03-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/03/29/whitehat-web-sec/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/29/whitehat-web-sec/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《<a href="http://book.douban.com/subject/10546925/" target="_blank" rel="external">白帽子讲Web安全</a>》这本书，是我在2012年买的，等我读完的时候，差不多两年过去了，这一点真心惭愧。工作的时候想看，但领导一看到我在看书就给我安排活儿，怕我一直看书对眼睛不好吧。在家的闲散时间把前四章看完之后就搁置了，期间翻越了《Web之困》和《Web前端黑客技术揭秘》，发觉还是这本《白帽子》讲的更浅显也更全面，就又开始从头细细的看。</p>
+<p>虽说这本书浅显，但不适合没有网络安全基础或web编程基础的人看，读这本书，需要的前置知识至少是：Javascript，PHP，XSS、注入等Web攻击的基本概念，以及部分Web服务器的配置知识。<br><a id="more"></a></p>
+<p>这本书涉及面很广。</p>
+<p>作者先花了整一章的内容论述自己对网络安全的基本观点和安全问题的本质核心。</p>
+<p>在客户端脚本安全章节，覆盖了浏览器安全、HTML5安全和XSS、CSRF等常见攻击手段，除了分析漏洞成因、利用手法以外，作者还补充了防御思路。到底是当年阿里集团的高级安全工程师，关于防御部分的描写还是非常有价值的。这也有别于市面上常见的各种讲黑客技术的书，那些书要么只讲工具怎么玩，要么只分析现有漏洞，对于如何防御大多语焉不详，本来嘛，没有实践经验，自然也就写不出干货来。</p>
+<p>在服务器端应用安全章节，覆盖了注入攻击、文件上传漏洞、身份认证与访问控制、Web框架安全、应用层DDoS、PHP安全和web server配置安全，甚至还用独立一章来讲加密算法和随机数，这是其他讲Web安全的书所几乎不涉及的内容。在这些章节中，Web框架安全和应用层DDoS是绝对亮点和精华。乌云上常见各个Web框架的漏洞导致的攻击行为，去年一个struts 2的漏洞就把国内互联网搅了个翻天覆地，可见Web框架安全的重要性。</p>
+<p>最后一部分是安全运营，这也是其他讲安全的书籍大多不会说的东西，写书的人绝大多数没有在甲方安全团队的从业经历，运营也就无从谈起。我个人认为这一部分是全书的精华，尤其是有关SDL在企业的应用部分，作者刺总还是写了很多实操经验的。</p>
+<p>夸完了，也要发几句牢骚。</p>
+<p>刺总可能是太想在一本书里把想说的内容都写全了，到头来大部分章节其实都没有太过深入进去。也难怪，拿XSS举例，单单这一种攻击手段，就可以单独写成一本262页的《XSS跨站脚本攻击剖析与防御》。部分内容也应该说刺总在网上搜罗到的资料，在有一章节我甚至搜索到了原文的博客。</p>
+<p>读这本书的时候，基本每一章节我都做了笔记，内容较多，保存在了我的为知笔记中，就不在这里啰嗦了。</p>
+<p>总体来说，这本书是网络安全从业者的必读本，通过这本书可以看到Web安全的基本全貌，有了全貌之后再选择在某个领域深挖钻研也才好下手。说到这里我不免想起了另一本书，《CISSP All in One Guide5 认证考试指南》。这是信息安全行业的百科全书了算是，覆盖信息安全所有领域。注意，信息安全和网络安全并不能划等号。《白帽子讲Web安全》就像是Web安全领域的all in one吧。一英里宽，一英寸深。</p>
+<p>我在豆瓣上创建了一个豆列：<a href="http://book.douban.com/doulist/3339701/" target="_blank" rel="external">网络安全必读书单</a>   有兴趣的可以参阅。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/03/26/400years-of-taiwan/" rel="next" title="短而精的台湾史----读《许倬云说历史：台湾四百年》">
+                <i class="fa fa-chevron-left"></i> 短而精的台湾史----读《许倬云说历史：台湾四百年》
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/08/openssl-heartbeat/" rel="prev" title="OpenSSL的heartbeat漏洞，让各大网站“滴血”">
+                OpenSSL的heartbeat漏洞，让各大网站“滴血” <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/03/29/whitehat-web-sec/"
+           data-title="终于读完了《白帽子讲Web安全》" data-url="http://yoursite.com/2014/03/29/whitehat-web-sec/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

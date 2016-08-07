@@ -1,0 +1,741 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IPS,日志,漏报,误报," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这篇东西主要谈论传统行业公司的安全部门，在日常运维中针对IPS可能遇到的问题，以及个人经验总结。和互联网企业的安全运维并非一个范畴的东西，和传统企业的IT运维有明星区别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传统企业的IPS运维">
+<meta property="og:url" content="http://yoursite.com/2015/07/30/传统企业的IPS运维/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="这篇东西主要谈论传统行业公司的安全部门，在日常运维中针对IPS可能遇到的问题，以及个人经验总结。和互联网企业的安全运维并非一个范畴的东西，和传统企业的IT运维有明星区别。">
+<meta property="og:updated_time" content="2016-08-07T15:03:02.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="传统企业的IPS运维">
+<meta name="twitter:description" content="这篇东西主要谈论传统行业公司的安全部门，在日常运维中针对IPS可能遇到的问题，以及个人经验总结。和互联网企业的安全运维并非一个范畴的东西，和传统企业的IT运维有明星区别。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/30/传统企业的IPS运维/"/>
+
+  <title> 传统企业的IPS运维 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                传统企业的IPS运维
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-30T11:50:02+08:00" content="2015-07-30">
+              2015-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/30/传统企业的IPS运维/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/30/传统企业的IPS运维/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇东西主要谈论传统行业公司的安全部门，在日常运维中针对IPS可能遇到的问题，以及个人经验总结。和互联网企业的安全运维并非一个范畴的东西，和传统企业的IT运维有明星区别。</p>
+<a id="more"></a>
+<p>传统行业的公司，与互联网公司的最大区别，在于主营业务和主营产品的不同。这是句废话。但这句废话直接决定了两种类型公司在面对安全问题的思路会有些许区别。互联网公司的产品就是互联网产品、网站系统，所以他们面对的互联网攻击数量更多，威胁也更丰富。加之互联网公司的员工绝大部分都是具备一定开发能力的程序员，根据目前我看到的情况来说，互联网公司在处理网络攻击时，更喜欢自建一套产品。一方面，自开发产品更能针对自己的业务特性和需要，另一方面，自开发产品可以更能满足互联网公司大流量高并发的需求，最后，成本也更容易控制。</p>
+<p>传统行业公司不具备足够数量的高水平程序员，从能力上无法自建安全产品，从业务来讲，对外提供服务的web网站和B/S架构的系统数量少、流量低、并发小，适用人群大多很聚焦，例如数量清晰的上游供应商、人员明确的销售管理系统或售后服务系统等，大多都是业务支持系统，自建一套的必要性不是太大。更重要的一点是，传统企业更希望安全建设见效快维护量小，所以，购买成熟的IPS、FW、WAF等等盒子，是首选之路。</p>
+<p>说完二者区别的简单认识，再来说点技术细节。</p>
+<p>设备上线时，为了测试验证策略有效性与兼容性，启用了全部策略。这就导致每天被记录的攻击日志接近万条。看起来安全威胁很严重，但又总是和领导说不清楚主要威胁是什么，威胁了哪些业务系统，应该怎么进一步防护和加固。</p>
+<p>从产品特性来说，IPS串行部署在网络出口，策略本身不可能太过严格，以防误报引起的业务中断。按道理说，IPS首要面对的，应该是漏报怎么发现如何解决。但面对一个月几十万条“攻击日志”的庞大数据，如果再加上漏报的数据分析，想要明确把握安全态势，就非常困难了。而且，能从IPS漏过的攻击，肯定都是经过精心设计的高级别的手法，处理方式也有别于最基本的攻击。</p>
+<p>所以，我的思路是，先分析现有日志，处理设备误报的问题，把当前真实的攻击从浩瀚的日志里抽丝剥茧暴露出来，给出解决办法和加固方案。稳住基本盘之后，再来处理漏过的高级别攻击。</p>
+<p>第一步，导出设备一月内的全部日志。这里就不得不吐槽下国产设备了。导出格式居然只支持txt一种！这还是市场占有率前三甲的某老牌公司的产品。在没有现成的SIEM的情况下，分析日志最有效的还是EXCEL啊。用EXCEL导入txt文件后，根据分隔符把每个字段单独成列。</p>
+<p>第二步，多维度统计。思路是，统计记录的攻击触发规则top10，用以展示攻击手段哪种最多。统计全部攻击中源地址的top10，展示攻击者的排序列表。统计全部攻击中目的地址的top10，展示哪些业务系统或内网主机成为靶子最多。</p>
+<p>这里用到了一些excel技巧。第一个是多维度排序。先按规则id降序，同时按源地址ip降序，后面再处理数据就方便多了。接着，最重要的功能就是，分类汇总。要统计触发规则top10，就得先统计每个规则被触发次数。那就按照规则id分类，按其他某列数据汇总。excel会自动把这个规则id一共出现次数全部统计出来。最后，把结果拷贝到另外一张sheet里降序，top10就出来了。</p>
+<p>做完这三项统计后，看着结果我就纳闷了。</p>
+<p>攻击源地址几乎95%都是内网地址。也即，从现在的日志来看，绝大部分攻击都是内网发起的、针对互联网服务器的各类注入、xss、溢出。这显然与网络实际状况有误。一个企业的互联网出口，不可能内网黑客数量远超出互联网的黑客数量，这有违常识。当然不排除说，内网主机中马了，成肉鸡后被人控制发起攻击。这种情况应该存在，但决不可能成主流。</p>
+<p>显而易见，日志有大量误报存在。现在面对的困难是，误报远远超出我的想象，漏报隐藏在庞大的数据流中遥不可及。</p>
+<p>分析误报，从两个角度入手。第一，分析攻击次数最多的策略和数据包；第二，分析这些攻击的源地址与目的地址。</p>
+<p>TOP1的攻击是针对某邮箱系统的溢出攻击。这种邮箱我们企业内根本就没有使用，误报的可能性很高。再看源地址，基本都是内网某两个段的地址。目的地址只有一个外网ip。也就是说，内网某个部门的员工们，大量攻击一个外网指定的邮件服务器。不合逻辑啊。更有可能的是，他们使用这台邮件服务器收发mail，但被误报成了攻击。</p>
+<p>为了证实，先找到用户确认他们是否频繁使用某外网邮件服务器。结果，这个段的用户是驻在公司范围的某兄弟企业的员工，他们每天都要访问自己公司的邮件服务器。</p>
+<p>证明误报，不能只靠逻辑，还得靠数据。从设备上抓取这条规则拦截的数据包，用wireshark打开，逐个TCP包分析，并没有看到有攻击特征。为了确认，我只好把数据发给原厂研发人员。一天后结果出来了，厂商确认这条策略制订有问题，属于误报，下次更新特征库就能解决这个问题。</p>
+<p>按照这个思路我分析了top12的攻击，结果11条都是误报。当时我就默默无语两眼泪了，这特么是什么特征库啊！更可气的是，有些误报让人觉得非常低级。</p>
+<p>比如，F5为了探测背后的服务器是否存活，会定时发ICMP包给他们。这些包都被当作了攻击。理由是，发包频率有问题。尼玛，你们难道就不知道有种负载均衡叫F5吗？你们难道就不知道企业用F5很多吗？分析下F5发的包和攻击包有什么区别，很难吗？</p>
+<p>再比如，记录到有大量数据库文件探测攻击。用wireshark打开HTTP包，然后跟踪他的TCP流，能看到具体的get信息。原来是请求的内容里，出现了mdb这三个字符。也就是说，特征库判断是否存在数据库文件探测攻击的标准简单到了，请求里有没有这三个字母。要知道在正常的http请求里，字符随即出现，这三个字符同时出现是再正常不过的事情了，你们能不能做做模式匹配或者正则表达式啊。</p>
+<p>更多的情况是，内网用户正常看网页时，有些互联网网站代码不规范，比如在http头里出现了javascrip:void（0），或者select，设备就会认定出现了 xss或sql注入。如此简单而白痴的判断，让我的心碎了一地。别理我，我想静静，也别问静静是谁……</p>
+<p>回到运维，处理这些大量的误报，思路有几种。</p>
+<p>第一，反馈原厂，修改特征库，减少误报。</p>
+<p>第二，把误报极高的规则不再记录日志。</p>
+<p>第三，内网访问外网的流量，匹配规则进行优化，不再启用类似注入、xss这些web类规则。</p>
+<p>现在的问题是，区域售后工程师技术能力跟不上。小伙子态度还不错，但对各类web攻击、木马特性研究太浅，沟通起来成本太高。更不要提给客户一些有价值的优化建议了。传统安全厂商对售后的认识，大多还停留在处理下设备故障、调试下设备功能、抓包以供研发人员研究等等诸如此类的基础工作上。而不是如何引导帮助客户，充分把设备用起来，用好，体现产品的价值。这种思路不扭转，传统安全厂商还是只能卖盒子。</p>
+<p>售后工程师说，他服务的其他本地客户绝大多数在设备上线以后就不再操心了，策略只要管用，那就让他静静的在网络出口当好“保安”吧。这一方面和客户的技术能力、对安全运维的态度有关，但更重要的是厂商的引导与支持。越不引导，客户就越会感觉盒子没用。价值越体现不出来，厂商的生意就越难做。</p>
+<p>当然，我也不能对刚毕业的售后工程师苛责太多，看着他，不免想起几年前的自己。那时的我，和他做一模一样的工作，处理几乎一模一样的问题，也从来没想过售后还能做点别的，还能为客户带来什么其他的价值。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IPS/" rel="tag">#IPS</a>
+          
+            <a href="/tags/日志/" rel="tag">#日志</a>
+          
+            <a href="/tags/漏报/" rel="tag">#漏报</a>
+          
+            <a href="/tags/误报/" rel="tag">#误报</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/05/phoenixstudio/" rel="next" title="凤凰工作室回归">
+                <i class="fa fa-chevron-left"></i> 凤凰工作室回归
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/16/bookshop/" rel="prev" title="逛书店">
+                逛书店 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/07/30/传统企业的IPS运维/"
+           data-title="传统企业的IPS运维" data-url="http://yoursite.com/2015/07/30/传统企业的IPS运维/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

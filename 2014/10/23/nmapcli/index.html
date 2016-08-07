@@ -1,0 +1,736 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Kali,nmap,参数,命令,扫描器,绕过防火墙," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近在研究Kali，配合一本《Kali渗透测试技术实战》 。在扫描部分，书中重点介绍nmap的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nmap命令详细">
+<meta property="og:url" content="http://yoursite.com/2014/10/23/nmapcli/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="最近在研究Kali，配合一本《Kali渗透测试技术实战》 。在扫描部分，书中重点介绍nmap的使用。">
+<meta property="og:image" content="http://ob7tq8bas.bkt.clouddn.com/nmapcli.jpg">
+<meta property="og:updated_time" content="2016-08-07T15:14:33.358Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nmap命令详细">
+<meta name="twitter:description" content="最近在研究Kali，配合一本《Kali渗透测试技术实战》 。在扫描部分，书中重点介绍nmap的使用。">
+<meta name="twitter:image" content="http://ob7tq8bas.bkt.clouddn.com/nmapcli.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/10/23/nmapcli/"/>
+
+  <title> nmap命令详细 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                nmap命令详细
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-23T16:51:05+08:00" content="2014-10-23">
+              2014-10-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/23/nmapcli/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/23/nmapcli/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在研究Kali，配合一本<a href="http://book.douban.com/subject/25967355/" target="_blank" rel="external">《Kali渗透测试技术实战》</a> 。在扫描部分，书中重点介绍nmap的使用。<br><a id="more"></a></p>
+<h2 id="为什么是nmap"><a href="#为什么是nmap" class="headerlink" title="为什么是nmap"></a>为什么是nmap</h2><p>常见的网络扫描器有很多，而nmap有如下优势：</p>
+<p>1.多平台。nmap原本是linux下的软件，后来逐步发布了windows版本，在不同的系统环境下都可以使用强大的nmap进行网络扫描和信息收集。</p>
+<p>2.功能强大。nmap的参数非常多，入手可能略困难，但通过设置不同的参数，可以发起不同类型的扫描，可订制化非常高。</p>
+<p>比如，可以发起UDP扫描，可以发起ACK扫描，这种扫描方式可以帮助判断目标机是否开启防火墙。</p>
+<p>nmap可以设置扫描的延时、扫描并发延时等等，控制扫描速度，在最慢速的扫描中，扫描一台主机有可能花费很多小时，但足以隐藏这次信息收集过程不被对方管理员发现。</p>
+<p>nmap设置可以伪造源地址发起扫描，以期绕过防火墙和IDS的日志记录，达到隐藏攻击者的目的。nmap甚至可以将发送的扫描数据包分片，实现绕过防火墙的功能，上述这些功能，在常见的X-scan、superscan上都不具备。</p>
+<h2 id="nmap命令结构"><a href="#nmap命令结构" class="headerlink" title="nmap命令结构"></a>nmap命令结构</h2><p><img src="http://ob7tq8bas.bkt.clouddn.com/nmapcli.jpg" alt="" title="nmapcli">如图，这是一个常见的nmap扫描命令，向目标为192.168.1.44发起一次SYN隐蔽扫描，按照T2时间模板进行，并将结果输出为文本文件。</p>
+<p>扫描选项部分，-s 小写的s，表示后面一个大写字母代表扫描类型。<br>“-sS” 代表隐蔽扫描，只发送一个SYN，不完成TCP三次握手<br>“-sT” TCP扫描，建立完整TCP三次握手，可被目标系统记录日志，但信息更丰富。<br>“-sU” UDP扫描 可以扫描UDP端口，开放的、关闭的、被防火墙过滤的。根据icmp返回的不同响应。<br>“-sA” ACK扫描 辨别靶机是否开启防火墙。<br>若防火墙启用，结果应该是All 1000 scanned ports on 192.168.1.44 are filtered<br>若防火墙未启用，结果应该是All 1000 scanned ports on 192.168.1.44 are unfiltered</p>
+<p>计时选项<br>“-T0” 慢速扫描，最小化被发现，串行的扫描方式，两次扫描之前的间隔最少5分钟。扫描500个UDP端口可能需要3小时。<br>该选项只应在需要隐蔽而且时间充裕时使用<br>“-T1” 比T0略快。保持慢速扫描的隐蔽性同时，减少了扫描需要的时间。同为串行扫描，两次扫描之间的间隔15s<br>“-T2” 最后一个串行扫描选项，两次扫描间隔400ms，单次扫描延时默认1分钟。<br>“-T3” 默认扫描方式，并行扫描，单次扫描延时1s，一秒后当前端口被放弃并进行下一个端口扫描。<br>“-T4” 单次扫描延时10ms，部分系统易出错。<br>“-T5” 速度最快。单次扫描延时5ms。</p>
+<p>扫描目标<br>可扫描ip段 nmap 10.0.2.1-255 或 nmap 10.0.2.1/24<br>扫描指定IP 把需要扫描的地址写入targets.txt nmap -iL targets.txt<br>如果需要排除目标ip段中的部分主机，需要使用–exclude 1.1.1.1 将其排除在外。</p>
+<p>可指定扫描端口 nmap -sS -p 1-100     nmap -sS -p 53,137,3389</p>
+<p>输出选项<br>-oN 结果输出到文本文件 nmap -oN aaa.txt 10.0.2.100<br>-oX 结果输出到XML文件 nmap -oX aaa.xml 10.0.2.100</p>
+<h2 id="其他有用的参数"><a href="#其他有用的参数" class="headerlink" title="其他有用的参数"></a>其他有用的参数</h2><p>如果只想使用ping扫描发现存活主机，而不想进一步获取操作系统、端口等信息，可使用-sP 参数</p>
+<p>“-PA” -PS的区别<br>“-PS” 使用syn标志位的tcp包进行扫描，根据对方返回的数据包标志位判断是否存活。如果存活，根据TCP协议会返回一个SYN/ACK标志位的包，如果端口关闭，会返回RST包。对于无状态防火墙也即普通的包过滤防火墙而言，-PS这种扫描方式会被防火墙阻拦。而有状态防火墙则不然。<br>“-PA” 使用ACK标志位的tcp包进行扫描。对无状态防火墙也即普通包过滤防火墙而言，-PA是可以透过防火墙的。但有状态防火墙则不然，没头没脑的ACK报文会被丢弃。<br>“-PU” 使用UDP ping发现主机是否存活，有些防火墙只过滤TCP端口，-PU可绕过这一点。</p>
+<p>哄骗防火墙<br>“-S” 1.1.1.1 使用1.1.1.1进行扫描，让防火墙误以为是来自1.1.1.1的扫描行为<br>“-f” 把扫描报文分片以期绕过防火墙</p>
+<p>“-sV” 获取应用的版本信息 -O 获取操作系统信息</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>nmap还可以通过设置不同的参数实现其他很多好玩有用的功能，具体细节有兴趣的可以参见官方的<a href="http://nmap.org/man/zh/" target="_blank" rel="external">《nmap参考指南》</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kali/" rel="tag">#Kali</a>
+          
+            <a href="/tags/nmap/" rel="tag">#nmap</a>
+          
+            <a href="/tags/参数/" rel="tag">#参数</a>
+          
+            <a href="/tags/命令/" rel="tag">#命令</a>
+          
+            <a href="/tags/扫描器/" rel="tag">#扫描器</a>
+          
+            <a href="/tags/绕过防火墙/" rel="tag">#绕过防火墙</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/17/冰书挑战/" rel="next" title="冰书挑战">
+                <i class="fa fa-chevron-left"></i> 冰书挑战
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/13/纪念鲜果阅读器君/" rel="prev" title="纪念鲜果阅读器君">
+                纪念鲜果阅读器君 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/23/nmapcli/"
+           data-title="nmap命令详细" data-url="http://yoursite.com/2014/10/23/nmapcli/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">205</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么是nmap"><span class="nav-number">1.</span> <span class="nav-text">为什么是nmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap命令结构"><span class="nav-number">2.</span> <span class="nav-text">nmap命令结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他有用的参数"><span class="nav-number">3.</span> <span class="nav-text">其他有用的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">4.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
