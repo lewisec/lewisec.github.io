@@ -926,11 +926,11 @@
     
       <category term="弱口令" scheme="http://yoursite.com/tags/%E5%BC%B1%E5%8F%A3%E4%BB%A4/"/>
     
+      <category term="爆破" scheme="http://yoursite.com/tags/%E7%88%86%E7%A0%B4/"/>
+    
       <category term="字典" scheme="http://yoursite.com/tags/%E5%AD%97%E5%85%B8/"/>
     
       <category term="暴力破解" scheme="http://yoursite.com/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/"/>
-    
-      <category term="爆破" scheme="http://yoursite.com/tags/%E7%88%86%E7%A0%B4/"/>
     
   </entry>
   
@@ -1001,13 +1001,13 @@
     
       <category term="密码" scheme="http://yoursite.com/tags/%E5%AF%86%E7%A0%81/"/>
     
-      <category term="爆破" scheme="http://yoursite.com/tags/%E7%88%86%E7%A0%B4/"/>
-    
       <category term="Burp Suite" scheme="http://yoursite.com/tags/Burp-Suite/"/>
     
       <category term="burpsuite" scheme="http://yoursite.com/tags/burpsuite/"/>
     
       <category term="post" scheme="http://yoursite.com/tags/post/"/>
+    
+      <category term="爆破" scheme="http://yoursite.com/tags/%E7%88%86%E7%A0%B4/"/>
     
       <category term="破解" scheme="http://yoursite.com/tags/%E7%A0%B4%E8%A7%A3/"/>
     
