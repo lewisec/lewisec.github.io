@@ -5,10 +5,53 @@
   <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2016-08-06T15:56:41.374Z</updated>
+  <updated>2016-09-03T16:26:09.786Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CISSP备考经验</title>
+    <link href="http://www.lewisec.com/2016/09/04/CISSP%E5%A4%87%E8%80%83%E7%BB%8F%E9%AA%8C/"/>
+    <id>http://www.lewisec.com/2016/09/04/CISSP备考经验/</id>
+    <published>2016-09-03T16:18:22.000Z</published>
+    <updated>2016-09-03T16:26:09.786Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0X00-引子"><a href="#0X00-引子" class="headerlink" title="0X00 引子"></a>0X00 引子</h2><p>2016年9月2日，北京。<br>在经历了5小时30分钟的煎熬后，我在一台电脑上点击了“结束考试”的按钮，走出狭小的考试房。两位年轻的监考老师开始在她们的电脑上操作，一位起身去了打印机旁边，另一位告诉我可以收拾东西了，回去等邮箱里面的邮件通知吧。根据考友们的信息，一般通过考试的才会收到ISC2的邮件通知的，考试失败的会当场给一份成绩说明。果然，监考老师把打印好的成绩单递给了我，一句简单的“恭喜啊”让我悬着的心落地了。随之而来的好像没有预想中的兴奋，只是一种放松。<br>在努力了8个月之后，我终于通过了CISSP的考试。</p>
+<p>记录一些经验，分享给仍然奋战在CISSP备考道路上的各位安全同行们。<br><a id="more"></a></p>
+<h2 id="0X01-证书简介"><a href="#0X01-证书简介" class="headerlink" title="0X01 证书简介"></a>0X01 证书简介</h2><p>CISSP认证的简介，网上一大堆。我只多说以下几点：</p>
+<ul>
+<li>截至2016年3月，中国大陆地区持有证书人数为1800人左右。</li>
+<li>CISSP目前在市面上没有题库可以背。ISC2对题库的保护非常严格，严禁通过考试后公开讨论试题。</li>
+<li>CISSP报考是有门槛要求的，通过考试后也必须提交安全行业的从业经历证明，才能拿到证书。</li>
+</ul>
+<h2 id="0X02-教材推荐"><a href="#0X02-教材推荐" class="headerlink" title="0X02 教材推荐"></a>0X02 教材推荐</h2><p>目前使用人数比较多的CISSP备考教材有以下几本，我逐个分析优劣。</p>
+<ul>
+<li>The Official (ISC)² Guide to the CISSP CBK。这是官方指定的教材。目前出到第四版。紧跟官方考试大纲。没有中文翻译版本，所以读起来会比较考验你的英文阅读能力。但这是我首推的一本书。官方教材还是更贴近考试一些。知识域的划分、概念的讲解都是比较原汁原味的，这对你考试时候理解考题的真实意图非常有帮助。这本书我是精读了一遍的，事实证明真心有用</li>
+<li>Shon Harris的All In One。目前英文版出了第七版，中文版出到第六版。这也是翻译成中文的唯一一本教材。第六版仍旧参考的是老版CBK的知识域结构，这是硬伤。考试大纲调整后重新调整了知识域的架构，考试的侧重点也完全不一样了。比如，物理环境安全一章，AIO讲了一大堆锁、视频监控的东西，其实考纲根本不关心这些细节。最新的第七版我在备考时略读了一遍，架构更合理了，可以作为备选教材。</li>
+<li>CISSP (ISC)² Certified Information Systems Security Professional Official Study Guide。最新版本是第七版。这本书很有意思，完全打散了考纲的架构，作者根据自己的理解重新组织成了21章。这本书我只是拿来做参考用的，行文风格比较口语化，不像CBK那么一板一眼的。不建议作为主力教材复习。</li>
+<li>Eleventh Hour CISSP Study Guide。这本书我也看了看，是大纲型的书籍，知识点不详细展开，整理了一下知识脉络而已。我在高铁上花了两个多小时看了一大半之后，就放弃了这本书。</li>
+</ul>
+<p>建议以CBK为主，AIO为辅。CBK的英文看不懂的时候，翻翻AIO的翻译帮助理解记忆。</p>
+<h2 id="0X03-测试题选择"><a href="#0X03-测试题选择" class="headerlink" title="0X03 测试题选择"></a>0X03 测试题选择</h2><p>市面上现在找不到真题题库，只有各类模拟题。首推CBK课后的练习题，这些对加深记忆非常有用。另外，AIO随书光盘还有一千多道题，我到临考前都没做完。这些题考基础概念比较多，但实际考试中直来直去问概念的题非常少。所以这些题只能帮助你理解概念。<br>总之，不要期望你做过的模拟题会真的出现在考场上，理解本质最重要。<br>当你做AIO的题能达到80%的正确率的时候，是时候准备约考试啦！</p>
+<h2 id="0X04-有关辅导班"><a href="#0X04-有关辅导班" class="headerlink" title="0X04 有关辅导班"></a>0X04 有关辅导班</h2><p>辅导班有用吗？我的经验是，辅导班最大的作用是帮助你梳理知识脉络，以过来人的角度告诉你哪些点可能考的比较多，哪些点出现在考试中的几率非常小。所以，别听他们吹嘘什么通过率90%+，但他们真的可以帮你节省复习时间。</p>
+<h2 id="0X05-CISSP的作用及其他"><a href="#0X05-CISSP的作用及其他" class="headerlink" title="0X05 CISSP的作用及其他"></a>0X05 CISSP的作用及其他</h2><p>有人说，拿到了CISSP以后年薪可以上浮XX%。我觉得这是辅导班的宣传策略。有人说CISSP不考具体攻防技术，证书没用。我觉得这是唯技术论的一家之言。<br>备考这八个月，至少帮我梳理了一遍安全所有领域的知识点，扩宽了我的知识面。重新架构了对安全的全面理解，这是最重要的。<br>实现了2016年的第一个目标，心情还是很愉快的。</p>
+<p>最后，住所有备考CISSP的同行们早日通过！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;0X00-引子&quot;&gt;&lt;a href=&quot;#0X00-引子&quot; class=&quot;headerlink&quot; title=&quot;0X00 引子&quot;&gt;&lt;/a&gt;0X00 引子&lt;/h2&gt;&lt;p&gt;2016年9月2日，北京。&lt;br&gt;在经历了5小时30分钟的煎熬后，我在一台电脑上点击了“结束考试”的按钮，走出狭小的考试房。两位年轻的监考老师开始在她们的电脑上操作，一位起身去了打印机旁边，另一位告诉我可以收拾东西了，回去等邮箱里面的邮件通知吧。根据考友们的信息，一般通过考试的才会收到ISC2的邮件通知的，考试失败的会当场给一份成绩说明。果然，监考老师把打印好的成绩单递给了我，一句简单的“恭喜啊”让我悬着的心落地了。随之而来的好像没有预想中的兴奋，只是一种放松。&lt;br&gt;在努力了8个月之后，我终于通过了CISSP的考试。&lt;/p&gt;
+&lt;p&gt;记录一些经验，分享给仍然奋战在CISSP备考道路上的各位安全同行们。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="CISSP" scheme="http://www.lewisec.com/tags/CISSP/"/>
+    
+  </entry>
   
   <entry>
     <title>Kerberos、RADIUS、TACACS+、Diameter协议区别</title>
@@ -926,92 +969,11 @@
     
       <category term="弱口令" scheme="http://www.lewisec.com/tags/%E5%BC%B1%E5%8F%A3%E4%BB%A4/"/>
     
-      <category term="爆破" scheme="http://www.lewisec.com/tags/%E7%88%86%E7%A0%B4/"/>
-    
       <category term="字典" scheme="http://www.lewisec.com/tags/%E5%AD%97%E5%85%B8/"/>
     
       <category term="暴力破解" scheme="http://www.lewisec.com/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/"/>
     
-  </entry>
-  
-  <entry>
-    <title>使用Burp Suite爆破Web应用密码</title>
-    <link href="http://www.lewisec.com/2014/12/03/burpsuite-web/"/>
-    <id>http://www.lewisec.com/2014/12/03/burpsuite-web/</id>
-    <published>2014-12-03T03:34:06.000Z</published>
-    <updated>2016-08-06T16:10:15.381Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="0X01-背景"><a href="#0X01-背景" class="headerlink" title="0X01  背景"></a>0X01  背景</h2><p>Burp Suite是一款非常优秀的针对Web应用的攻击平台，网上的教程也比较多，甚至在淘宝还有收费教程。由于Burp Suite功能强大，可实现多种web攻击，我总感觉网上现有的教程过于复杂，对于新手不那么容易理解。所以我决定自己写一点东西，结合原理，简单介绍Burp Suite的基础功能。</p>
-<p>这篇来谈使用Burp Suite爆破密码，截图来自真实环境的一次实验，为避免麻烦，敏感信息已模糊处理。后面我会把相关漏洞通过正规渠道通知责任方。</p>
-<p><strong>声明：只用于技术交流，严禁用于非法行为和破坏行为。</strong></p>
-<a id="more"></a>
-<h2 id="0X02-基础"><a href="#0X02-基础" class="headerlink" title="0X02 基础"></a>0X02 基础</h2><p>Burp Suite可以简单理解为，架设在攻击者浏览器和目标Web应用之间的一台代理服务器，所有流经二者之间的http数据均通过Burp Suite转发。因此，Burp Suite可拦截、修改、重新发送所有这些数据，以达到攻击目的。因此，安装好Burp Suite之后，在软件的Proxy标签–Options标签下，可以看到代理设置：127.0.0.1：8080。攻击者需要在自己的IE浏览器中将此设置为代理服务器。</p>
-<p>安装Burp Suite过程和如何设置代理服务器不属于本文讨论范围，有问题问google。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/daili.jpg" alt="" title="daili"></p>
-<h2 id="0X03-踩点"><a href="#0X03-踩点" class="headerlink" title="0X03 踩点"></a>0X03 踩点</h2><p>想使用Burp Suite攻击，首先需要让Burp Suite认识目标。</p>
-<p>设置好IE的代理服务器之后，此时浏览器所有数据包都流经Burp Suite。我们先访问一次目标应用。这次选取的是某企业的邮件系统。</p>
-<p>在IE中访问<a href="https://mail.AAA.com，发现浏览器并未加载任何内容，同时，在Burp" target="_blank" rel="external">https://mail.AAA.com，发现浏览器并未加载任何内容，同时，在Burp</a> Suite界面中，Proxy标签和Intercept标签成了黄色，提醒攻击者，这里有新的数据。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/caidian1.jpg" alt="" title="caidian1"></p>
-<p>Burp Suite默认是拦截所有数据包等待攻击者修改后才发送给web服务器的，所以，我们点开Intercept标签，点“forward”按钮，通过数据包。这时，IE才正常加载了邮件系统登陆页面。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/caidian2.jpg" alt="" title="caidian2"></p>
-<p>我们输入需要爆破的用户名，和一个随意的密码，点登录。这时，Burp Suite的Proxy标签–Intercept标签再次变黄，提醒拦截到了数据。仍旧点Forward，通过这些数据包。此时，IE里面，系统提示登录失败，用户名密码错误。</p>
-<p>完整的“踩点”，就完成了。回顾过程，我们访问了一次目标系统，进行了一次登录操作，向web系统提交了一个POST包，包含有待爆破的用户名和一个错误的密码。而Web系统校验了这次登录行为，返回了登录失败的信息。所有这些数据，都已经被Burp Suite拦截和记录了下来，如下图：</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/caidian3.jpg" alt="" title="caidian3"></p>
-<p>在这个界面，可清晰看到我们向服务器提交的POST包的具体内容，红色框内就是我们提交的用户名liuzXXXhao和那个错误的密码1。</p>
-<h2 id="0X04-爆破"><a href="#0X04-爆破" class="headerlink" title="0X04 爆破"></a>0X04 爆破</h2><p>现在是来真格的时候啦。</p>
-<p>首先，我们在这个post包上点右键，选send to Intruder</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baopo1.jpg" alt="" title="baopo1"></p>
-<p>我们来到Intruder标签–positions标签下，看到发送过来的详细内容，所有动态的参数都被用黄色显示且前后加有$符号。</p>
-<p>我们这次攻击是已知用户名，来爆破密码，所以，我们通过点击右边的“clear$”按钮，把除了$password$以外的参数都移除掉。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baopo2.jpg" alt="" title="baopo2"></p>
-<p>我们再来到payload标签下，点击“Load…”按钮，加载攻击payload：我们的字典文件。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baopo3.jpg" alt="" title="baopo3"></p>
-<p>加载完成后就是上面图中的样子了，字典是我自己搜集的大陆网民常用的一百多个弱口令。如果想加快爆破速度，可以在options标签里修改线程数。默认是5个线程。</p>
-<p>现在就可以爆破啦。点最上面的“Intruder”按钮，点“Start attack”即可。</p>
-<p>爆破过程如果所示：</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baopo4.jpg" alt="" title="baopo4"></p>
-<p>字典里111个密码挨个试，下面进度条很快就走完了，大概耗时几十秒。</p>
-<p>全部跑完以后，如何找到爆出来的真实密码呢？我们在结果界面中仔细看，正确的密码登录后web服务器返回的包长度和错误的密码返回的包长度肯定是不一样的，找到他，那就是最终结果！</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baopo5.jpg" alt="" title="baopo5">看到了吗？那个Length为430的，就是最终结果。亲测有效。不再截图。</p>
-<h2 id="0X05-尾声"><a href="#0X05-尾声" class="headerlink" title="0X05 尾声"></a>0X05 尾声</h2><p>简单回顾攻击过程：</p>
-<p>使用浏览器访问一次目标系统并登陆一次—-Burp Suite截取并记录了数据—-找到post包发送给攻击模块—-修改需要攻击的参数—–加载字典—-开始爆破—-通过区别于其他Length，找到最终密码。</p>
-<p>需要说明的是，能实现这种爆破是有前提的：</p>
-<p>1.登录界面没有验证码。</p>
-<p>2.登录过程没有错误三次后XX分钟内不可登录的限制。</p>
-<p>3.你需要知道用户名。</p>
-<p>但是，不要以为有这种限制，这种爆破的成功率就很低，根据我的经验，目前国内很多企业、政府的web系统都是公网可访问且没有验证码限制、没有登录错误次数限制的，你只需要通过一点点社工知晓了用户名，再准备一个足够强大的字典即可，爆破成功只是时间问题。</p>
-<p>防御方面：</p>
-<p>1.重要web系统不要对公网公开访问，最起码要限制登录IP，或者，做登录准入，比如加域。</p>
-<p>2.加个验证码不复杂，做错误登录次数限制也不复杂，程序员们别偷懒。</p>
-<p>3.密码还是复杂一点吧，什么123321、qazwsx之类的密码还是不要用了。</p>
-<p>爆破这种密码，还可以使用Hydra，但Hydra需要比较复杂的命令参数，需要对post数据比较熟悉，成功率似乎也低一点。Burp Suite更强大，爆破密码只是很基础的功能之一，更强大功能有待进一步学习。</p>
-<p><strong>最后再次声明，本文只用来技术交流，严禁用于非法行为。所有漏洞我会在合适的时候以正规渠道通知对方。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;0X01-背景&quot;&gt;&lt;a href=&quot;#0X01-背景&quot; class=&quot;headerlink&quot; title=&quot;0X01  背景&quot;&gt;&lt;/a&gt;0X01  背景&lt;/h2&gt;&lt;p&gt;Burp Suite是一款非常优秀的针对Web应用的攻击平台，网上的教程也比较多，甚至在淘宝还有收费教程。由于Burp Suite功能强大，可实现多种web攻击，我总感觉网上现有的教程过于复杂，对于新手不那么容易理解。所以我决定自己写一点东西，结合原理，简单介绍Burp Suite的基础功能。&lt;/p&gt;
-&lt;p&gt;这篇来谈使用Burp Suite爆破密码，截图来自真实环境的一次实验，为避免麻烦，敏感信息已模糊处理。后面我会把相关漏洞通过正规渠道通知责任方。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;声明：只用于技术交流，严禁用于非法行为和破坏行为。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
-    
-    
-      <category term="密码" scheme="http://www.lewisec.com/tags/%E5%AF%86%E7%A0%81/"/>
-    
-      <category term="Burp Suite" scheme="http://www.lewisec.com/tags/Burp-Suite/"/>
-    
-      <category term="burpsuite" scheme="http://www.lewisec.com/tags/burpsuite/"/>
-    
-      <category term="post" scheme="http://www.lewisec.com/tags/post/"/>
-    
       <category term="爆破" scheme="http://www.lewisec.com/tags/%E7%88%86%E7%A0%B4/"/>
-    
-      <category term="破解" scheme="http://www.lewisec.com/tags/%E7%A0%B4%E8%A7%A3/"/>
-    
-      <category term="验证码" scheme="http://www.lewisec.com/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/"/>
     
   </entry>
   
