@@ -2,13 +2,54 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Lewsic</title>
   
-  <link href="http://www.lewisec.com/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2016-09-03T16:26:09.786Z</updated>
+  <updated>2016-09-05T14:57:31.591Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>华为数据安全管理实践学习笔记</title>
+    <link href="http://www.lewisec.com/2016/09/05/%E5%8D%8E%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.lewisec.com/2016/09/05/华为数据安全管理实践学习笔记/</id>
+    <published>2016-09-05T14:56:11.000Z</published>
+    <updated>2016-09-05T14:57:31.591Z</updated>
+    
+    <content type="html"><![CDATA[<p>在2016云栖安全大会上，华为信息安全运营总监孙颖老师分享了华为在做内部安全管理和运营的宝贵经验，受益匪浅。记录笔记如下，我的感悟是黑斜体部分。<br><a id="more"></a></p>
+<h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ul>
+<li>明确核心信息资产清单  </li>
+<li>流程、组织、技术三方面建设整体方案<br><strong><em>资产清单是管理的抓手，只有明确了要保护什么，才能有的放矢。但梳理信息资产清单，并设计可落地的分级分类措施，这是难点。如何让员工短时间内学会并准确执行分级分类的要求？如何以流程化的方式确保分级分类的落地？这才是管理的核心问题。</em></strong><h3 id="信息分级分类"><a href="#信息分级分类" class="headerlink" title="信息分级分类"></a>信息分级分类</h3></li>
+<li>明确核心资产在业务流程中的流转过程</li>
+<li>明确核心资产在不同系统中的流转过程<br><strong><em>四大的方法论中也有类似的内容。难点仍旧是落地。不能指望业务部门的员工认真分析这两个流转过程，而安全部门又没有能力分析准确。如何有效率的与业务部门结合，花最小的成本高质量的完成梳理工作，这是重点</em></strong><h3 id="融入业务流程"><a href="#融入业务流程" class="headerlink" title="融入业务流程"></a>融入业务流程</h3></li>
+<li>按流程划分SDLC阶段</li>
+<li>每个阶段明确核心资产清单是什么</li>
+<li>明确在每个阶段，每个核心资产所在位置</li>
+<li>明确每个阶段、每个资产，在每个位置的安全要求</li>
+<li>实现安全融入流程，化整为零，完成对业务流程的安全改造，润物细无声</li>
+<li>补充：数据上载PDM后，本机不留源码副本，并有专人检查<br><strong><em>这是对前文所述的两大流转过程梳理的细化描述。目标是改造出安全的业务流程，达到润物细无声的境界，难度很大</em></strong><h3 id="安全服务举例"><a href="#安全服务举例" class="headerlink" title="安全服务举例"></a>安全服务举例</h3></li>
+<li>一键式获取权限，减少对业务影响</li>
+<li>在申请流程中明确告知事项，不需要用户自己去找</li>
+<li>直接主管负责审批<h3 id="安全流程"><a href="#安全流程" class="headerlink" title="安全流程"></a>安全流程</h3></li>
+<li>细化业务流程的操作阶段</li>
+<li>每个阶段留存独立的日志：授权日志、查询日志、导出日志、加密授权日志、邮件发送日志<br><strong><em>留存日志并定期审计，这是对安全态势的监控，也是对员工的威慑与引导</em></strong></li>
+</ul>
+<p>上述思路其实四大顾问曾经带着我们做过一轮，华为的确是把这套方法论完整落地执行，并且看到了产出物与收益的。这一点的确要佩服华为安全部。<br>务虚的东西看似美好而遥不可及，但真正落地执行了才知道其中的艰难辛苦。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在2016云栖安全大会上，华为信息安全运营总监孙颖老师分享了华为在做内部安全管理和运营的宝贵经验，受益匪浅。记录笔记如下，我的感悟是黑斜体部分。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="安全管理" scheme="http://www.lewisec.com/tags/%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>CISSP备考经验</title>
@@ -924,56 +965,6 @@
       <category term="弱口令" scheme="http://www.lewisec.com/tags/%E5%BC%B1%E5%8F%A3%E4%BB%A4/"/>
     
       <category term="泄露" scheme="http://www.lewisec.com/tags/%E6%B3%84%E9%9C%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的字典</title>
-    <link href="http://www.lewisec.com/2014/12/14/dic/"/>
-    <id>http://www.lewisec.com/2014/12/14/dic/</id>
-    <published>2014-12-14T09:08:41.000Z</published>
-    <updated>2016-08-07T05:55:38.900Z</updated>
-    
-    <content type="html"><![CDATA[<p>暴力破解是网络攻击常见手法之一，够简单够直接。想要爆破成功一个密码，拥有一份好的字典是必不可少的。当然，彩虹表除外。</p>
-<p>之前我写过一篇爆破web系统密码的文章, 其中就需要用到字典。</p>
-<p>网上有很多人贡献自己的字典，但我总觉得不够顺手，要么太大，几十万条的数据跑起来怕是要几个小时，代价太高。要么不全，影响爆破成功率。</p>
-<p>我收集了几份不同的字典，删除重复项，删除长度小于4和大于18的项目，整理出自己的几份字典，分享出来，希望能帮到你。</p>
-<a id="more"></a>
-<p><a href="http://ob7tq8bas.bkt.clouddn.com/all.txt" title="字典" target="_blank" rel="external">字典</a></p>
-<p>这份字典一共72286条内容，涵盖了常见英文单词、数字组合、生日以及特殊符号组合。</p>
-<p>我觉得数据还是略微多了一点，又拆分成了下面几个小字典：</p>
-<p><a href="http://ob7tq8bas.bkt.clouddn.com/zimu.txt" title="字母" target="_blank" rel="external">字母</a>   包含42474条内容；</p>
-<p><a href="http://ob7tq8bas.bkt.clouddn.com/num.txt" title="数字" target="_blank" rel="external">数字</a>   包含24208条内容；</p>
-<p><a href="http://ob7tq8bas.bkt.clouddn.com/fuhao.txt" title="特殊符号" target="_blank" rel="external">特殊符号</a>   包含2573条内容；</p>
-<p>如果你喜欢，还可以继续往细里拆分。</p>
-<p>如果你觉得还是大，那么我手里最迷你的字典在这里：</p>
-<p><a href="http://ob7tq8bas.bkt.clouddn.com/changyong.txt" title="最常用" target="_blank" rel="external">最常用</a></p>
-<p>这份字典的主要来源是<a href="http://www.freebuf.com/articles/web/42120.html" title="Freebuf" target="_blank" rel="external">Freebuf</a>收集的最常用弱口令Top100以及我自己添加的一点点，只有123条数据。</p>
-<p>如果你想要玩个大的，我收集的最大的字典来自微博的一位朋友，他搭建了一个蜜罐，过了n久后翻日志发现一堆人去爆破密码，他把日志记录处理了下就得到了一个很牛逼的字典，不得不说这个思路太华丽了。时间太久，我没有记下这位朋友的名字，微博也没翻到。感谢他的分享。</p>
-<p>这份字典有348713条记录：<a href="http://ob7tq8bas.bkt.clouddn.com/big.txt" title="大字典" target="_blank" rel="external">大字典</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;暴力破解是网络攻击常见手法之一，够简单够直接。想要爆破成功一个密码，拥有一份好的字典是必不可少的。当然，彩虹表除外。&lt;/p&gt;
-&lt;p&gt;之前我写过一篇爆破web系统密码的文章, 其中就需要用到字典。&lt;/p&gt;
-&lt;p&gt;网上有很多人贡献自己的字典，但我总觉得不够顺手，要么太大，几十万条的数据跑起来怕是要几个小时，代价太高。要么不全，影响爆破成功率。&lt;/p&gt;
-&lt;p&gt;我收集了几份不同的字典，删除重复项，删除长度小于4和大于18的项目，整理出自己的几份字典，分享出来，希望能帮到你。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
-    
-    
-      <category term="密码" scheme="http://www.lewisec.com/tags/%E5%AF%86%E7%A0%81/"/>
-    
-      <category term="弱口令" scheme="http://www.lewisec.com/tags/%E5%BC%B1%E5%8F%A3%E4%BB%A4/"/>
-    
-      <category term="字典" scheme="http://www.lewisec.com/tags/%E5%AD%97%E5%85%B8/"/>
-    
-      <category term="暴力破解" scheme="http://www.lewisec.com/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/"/>
-    
-      <category term="爆破" scheme="http://www.lewisec.com/tags/%E7%88%86%E7%A0%B4/"/>
     
   </entry>
   
