@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Imperva,WAF,FortiWeb," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lewsic" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从甲方的角度谈谈WAF测试方法--part1">
+<meta property="og:url" content="http://www.lewisec.com/2016/09/16/从甲方的角度谈谈WAF测试方法-part1/index.html">
+<meta property="og:site_name" content="Lewsic">
+<meta property="og:description" content="网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。">
+<meta property="og:updated_time" content="2016-09-16T15:02:11.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从甲方的角度谈谈WAF测试方法--part1">
+<meta name="twitter:description" content="网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.lewisec.com/2016/09/16/从甲方的角度谈谈WAF测试方法-part1/"/>
+
+  <title> 从甲方的角度谈谈WAF测试方法--part1 | Lewsic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-82645848-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lewsic</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                从甲方的角度谈谈WAF测试方法--part1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-16T22:44:11+08:00" content="2016-09-16">
+              2016-09-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/16/从甲方的角度谈谈WAF测试方法-part1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/16/从甲方的角度谈谈WAF测试方法-part1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。<br>作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。<br>一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。</p>
+<a id="more"></a>
+<h3 id="0X01-测试思路"><a href="#0X01-测试思路" class="headerlink" title="0X01 测试思路"></a>0X01 测试思路</h3><ul>
+<li>环境搭建<ul>
+<li>服务器：使用DVWA搭建一套包含各类漏洞的网站，并开启access日志以供分析。DVWA搭建过程不细说。</li>
+<li>WAF：反向代理部署，将DVWA服务器做反向代理后映射出VS IP。测试时所有payload发送至VS IP，经WAF处理后交给DVWA服务器。</li>
+</ul>
+</li>
+<li>测试方法：客户端构造payload提交给VS IP，服务器查看access日志。如被有效识别并过滤，access日志应没有相关内容。</li>
+</ul>
+<h3 id="0X02-OWASP-TOP10-常规防御"><a href="#0X02-OWASP-TOP10-常规防御" class="headerlink" title="0X02 OWASP TOP10 常规防御"></a>0X02 OWASP TOP10 常规防御</h3><ul>
+<li>SQLi<ul>
+<li>get型注入：<a href="http://10.44.100.18/dvwa/vulnerabilities/sqli/?id=22&amp;Submit=Submit#" target="_blank" rel="external">http://10.44.100.18/dvwa/vulnerabilities/sqli/?id=22&amp;Submit=Submit#</a> 的参数id可以注入，构造payload提交即可。</li>
+<li>post型注入：DVWA登录过程用burpsuite抓包，即可构造post型注入。</li>
+</ul>
+</li>
+<li>XSS<ul>
+<li>反射型XSS和存储型XSS在DVWA中都有，构造payload即可。</li>
+</ul>
+</li>
+<li>CSRF、command injection、Brute Foce、File upload等等方式，DVWA都有了，不细说。</li>
+<li>漏掉的是SSRF、反序列化、structs、心脏滴血，这些攻击在当前版本的DVWA中是没有设计的，需要单独考虑。</li>
+</ul>
+<h3 id="0X03-绕过技术的防御"><a href="#0X03-绕过技术的防御" class="headerlink" title="0X03 绕过技术的防御"></a>0X03 绕过技术的防御</h3><p>除了最常见攻击手法的防御以外，WAF还应该具备识别变形的Payload的能力。<br>目前国内外商业WAF可以识别99%以上的常规攻击手段，区别主要就体现在对各类编码后的变形Payload的分析能力上。<br>这里面又区分成了两大类思路。</p>
+<h4 id="思路一："><a href="#思路一：" class="headerlink" title="思路一："></a>思路一：</h4><p>WAF抓取到HTTP包后，做多重解码，将每重解码的结果提取正则，与特征库进行匹配。各家能解码的层数会有区别。F5的ASM可以支持最多5层并且允许用户手工设定层数。其他家虽不可指定解码层数，但都具备相应能力。</p>
+<h4 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h4><p>考虑到正则匹配容易误报漏报，有厂家放弃了这种分析模式，转而做语义分析。长亭科技的SqlChop就是如此，详情可阅读：<a href="https://blog.chaitin.com/sqlchop-the-sqli-detection-engine/" target="_blank" rel="external">SQLChop - 一个新型 SQL 注入检测引擎</a><br>在测试中，需要手工对payload做编码变形。详细说来：</p>
+<h4 id="SQLi变形"><a href="#SQLi变形" class="headerlink" title="SQLi变形"></a>SQLi变形</h4><ul>
+<li>urlencode编码：别小看这种常见的绕过方法，有厂家的WAF还真检测不出来。</li>
+<li>unicode编码</li>
+<li>关键字大小写替换：这个比较常规了，基本是没有检测不到的。</li>
+<li>关键字转为十六进制</li>
+<li>关键字用反引号引起来</li>
+<li>关键字用/#!  #/注释引起来</li>
+<li>关键字用/##/注释截断：select转为sel/**/ect</li>
+<li>关键字用%00截断</li>
+<li>提交的HTTP包中，将x-originating-IP 改为127.0.0.1</li>
+<li>提交的HTTP包中，将X-remote-addr 改为127.0.0.1</li>
+<li>SQLMAP的各类TAMPER，挨个试一试吧</li>
+</ul>
+<h4 id="XSS变形"><a href="#XSS变形" class="headerlink" title="XSS变形"></a>XSS变形</h4><p>XSS变形最多，WAF漏报也是最严重的。谁让HTML可利用的标签那么多呢。<br>这一块的测试，有赖于测试者平时收集各类XSS payload 的量。我仅列出一部分常见的以供参考：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;embed/src=<span class="comment">//goo.gl/nlX0P&gt;</span></div><div class="line">&lt;object data=<span class="string">"data:text/html;base64,PHNjcmlwdD5hbGVydCgiSGVsbG8iKTs8L3NjcmlwdD4="</span>&gt;</div><div class="line">&lt;a onmouseover="javascript:window.onerror=alert;throw 1&gt;</div><div class="line">&lt;svg&gt;&lt;script&gt;varmyvar="YourInput";&lt;/script&gt;&lt;/svg&gt;</div><div class="line">&lt;s%00c%00r%00%00ip%00t&gt;confirm(0);&lt;/s%00c%00r%00%00ip%00t&gt;</div><div class="line">&lt;script&gt;//@cc_on!alert(1)/*@cc_on~alert(2)@*/&lt;/script&gt;</div><div class="line">&lt;marquee/onstart=confirm(2)&gt;/</div><div class="line">&lt;a/onmouseover[\x0b]=location=&amp;#039;\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74\x3A\x61\x6C\x65\x72\x74\x28\x30\x29\x3B&amp;#039;&gt;XSS</div></pre></td></tr></table></figure></p>
+<h4 id="文件包含绕过"><a href="#文件包含绕过" class="headerlink" title="文件包含绕过"></a>文件包含绕过</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data:text/plain;base64,ZGF0YTp0ZXh0L3BsYWluLDw/cGhwIHN5c3RlbSgnY2F0IC92YXIvd3d3L0ZpbGVJbmNsdWRlLnBocCcpPz4=</div></pre></td></tr></table></figure>
+<h4 id="文件上传绕过"><a href="#文件上传绕过" class="headerlink" title="文件上传绕过"></a>文件上传绕过</h4><p>文件上传绕过主要考虑几个方面：</p>
+<ul>
+<li>123.php.123</li>
+<li>123.asp;.gif</li>
+<li>as.php%00.gif</li>
+<li>文件开头添加GIF89a</li>
+<li>burpsuite抓包修改Content-Type: image/jpeg</li>
+</ul>
+<p>###0X03 扫描器防御能力<br>WAF应具备根据数据包特征识别扫描器的能力，并加以阻止。常见的扫描器，如WVS、SQLMAP、Netsparker、havij、Appscan都应该拿来实际测试WAF的反应。<br>需要说明的一点是，WAF不仅要拦截扫描器发来的数据包，还应在日志中注明，攻击者使用何种扫描器。这对运维人员分析日志很有帮助。<br>例如，实际测试中，Imperva对SQLMAP和Netsparker都可以准确识别。而F5的ASM则可以准确识别WVS和SQLMAP。FortiWeb则不具备这个能力。</p>
+<p>剩下几个章节，将讨论以下内容：</p>
+<ul>
+<li>Webshell通信拦截测试</li>
+<li>其余几个小功能点测试</li>
+<li>设备自身安全测试</li>
+<li>自学习模式测试</li>
+<li>WAF测试工具</li>
+<li>WAF 管理维护功能测试<br>未完待续</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>你的打赏，我的干粮</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ob7tq8bas.bkt.clouddn.com/erweima.png" alt=" WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Imperva/" rel="tag">#Imperva</a>
+          
+            <a href="/tags/WAF/" rel="tag">#WAF</a>
+          
+            <a href="/tags/FortiWeb/" rel="tag">#FortiWeb</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/05/华为数据安全管理实践学习笔记/" rel="next" title="华为数据安全管理实践学习笔记">
+                <i class="fa fa-chevron-left"></i> 华为数据安全管理实践学习笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/16/从甲方的角度谈谈WAF测试方法-part1/"
+           data-title="从甲方的角度谈谈WAF测试方法--part1" data-url="http://www.lewisec.com/2016/09/16/从甲方的角度谈谈WAF测试方法-part1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob7tq8bas.bkt.clouddn.com/blue-lotus.png"
+               alt="" />
+          <p class="site-author-name" itemprop="name"></p>
+          <p class="site-description motion-element" itemprop="description">Lewisec = Lewis & security</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">208</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lewisec" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/__hblf__" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1675459885" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/hblf" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-测试思路"><span class="nav-number">1.</span> <span class="nav-text">0X01 测试思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X02-OWASP-TOP10-常规防御"><span class="nav-number">2.</span> <span class="nav-text">0X02 OWASP TOP10 常规防御</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X03-绕过技术的防御"><span class="nav-number">3.</span> <span class="nav-text">0X03 绕过技术的防御</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路一："><span class="nav-number">3.1.</span> <span class="nav-text">思路一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路二："><span class="nav-number">3.2.</span> <span class="nav-text">思路二：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQLi变形"><span class="nav-number">3.3.</span> <span class="nav-text">SQLi变形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XSS变形"><span class="nav-number">3.4.</span> <span class="nav-text">XSS变形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件包含绕过"><span class="nav-number">3.5.</span> <span class="nav-text">文件包含绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传绕过"><span class="nav-number">3.6.</span> <span class="nav-text">文件上传绕过</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lewis"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+</body>
+</html>

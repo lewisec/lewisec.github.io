@@ -2,13 +2,98 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Lewsic</title>
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2016-09-05T14:57:31.591Z</updated>
+  <updated>2016-09-16T15:02:11.612Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从甲方的角度谈谈WAF测试方法--part1</title>
+    <link href="http://www.lewisec.com/2016/09/16/%E4%BB%8E%E7%94%B2%E6%96%B9%E7%9A%84%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88WAF%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95-part1/"/>
+    <id>http://www.lewisec.com/2016/09/16/从甲方的角度谈谈WAF测试方法-part1/</id>
+    <published>2016-09-16T14:44:11.735Z</published>
+    <updated>2016-09-16T15:02:11.612Z</updated>
+    
+    <content type="html"><![CDATA[<p>网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。<br>作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。<br>一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。</p>
+<a id="more"></a>
+<h3 id="0X01-测试思路"><a href="#0X01-测试思路" class="headerlink" title="0X01 测试思路"></a>0X01 测试思路</h3><ul>
+<li>环境搭建<ul>
+<li>服务器：使用DVWA搭建一套包含各类漏洞的网站，并开启access日志以供分析。DVWA搭建过程不细说。</li>
+<li>WAF：反向代理部署，将DVWA服务器做反向代理后映射出VS IP。测试时所有payload发送至VS IP，经WAF处理后交给DVWA服务器。</li>
+</ul>
+</li>
+<li>测试方法：客户端构造payload提交给VS IP，服务器查看access日志。如被有效识别并过滤，access日志应没有相关内容。</li>
+</ul>
+<h3 id="0X02-OWASP-TOP10-常规防御"><a href="#0X02-OWASP-TOP10-常规防御" class="headerlink" title="0X02 OWASP TOP10 常规防御"></a>0X02 OWASP TOP10 常规防御</h3><ul>
+<li>SQLi<ul>
+<li>get型注入：<a href="http://10.44.100.18/dvwa/vulnerabilities/sqli/?id=22&amp;Submit=Submit#" target="_blank" rel="external">http://10.44.100.18/dvwa/vulnerabilities/sqli/?id=22&amp;Submit=Submit#</a> 的参数id可以注入，构造payload提交即可。</li>
+<li>post型注入：DVWA登录过程用burpsuite抓包，即可构造post型注入。</li>
+</ul>
+</li>
+<li>XSS<ul>
+<li>反射型XSS和存储型XSS在DVWA中都有，构造payload即可。</li>
+</ul>
+</li>
+<li>CSRF、command injection、Brute Foce、File upload等等方式，DVWA都有了，不细说。</li>
+<li>漏掉的是SSRF、反序列化、structs、心脏滴血，这些攻击在当前版本的DVWA中是没有设计的，需要单独考虑。</li>
+</ul>
+<h3 id="0X03-绕过技术的防御"><a href="#0X03-绕过技术的防御" class="headerlink" title="0X03 绕过技术的防御"></a>0X03 绕过技术的防御</h3><p>除了最常见攻击手法的防御以外，WAF还应该具备识别变形的Payload的能力。<br>目前国内外商业WAF可以识别99%以上的常规攻击手段，区别主要就体现在对各类编码后的变形Payload的分析能力上。<br>这里面又区分成了两大类思路。</p>
+<h4 id="思路一："><a href="#思路一：" class="headerlink" title="思路一："></a>思路一：</h4><p>WAF抓取到HTTP包后，做多重解码，将每重解码的结果提取正则，与特征库进行匹配。各家能解码的层数会有区别。F5的ASM可以支持最多5层并且允许用户手工设定层数。其他家虽不可指定解码层数，但都具备相应能力。</p>
+<h4 id="思路二："><a href="#思路二：" class="headerlink" title="思路二："></a>思路二：</h4><p>考虑到正则匹配容易误报漏报，有厂家放弃了这种分析模式，转而做语义分析。长亭科技的SqlChop就是如此，详情可阅读：<a href="https://blog.chaitin.com/sqlchop-the-sqli-detection-engine/" target="_blank" rel="external">SQLChop - 一个新型 SQL 注入检测引擎</a><br>在测试中，需要手工对payload做编码变形。详细说来：</p>
+<h4 id="SQLi变形"><a href="#SQLi变形" class="headerlink" title="SQLi变形"></a>SQLi变形</h4><ul>
+<li>urlencode编码：别小看这种常见的绕过方法，有厂家的WAF还真检测不出来。</li>
+<li>unicode编码</li>
+<li>关键字大小写替换：这个比较常规了，基本是没有检测不到的。</li>
+<li>关键字转为十六进制</li>
+<li>关键字用反引号引起来</li>
+<li>关键字用/#!  #/注释引起来</li>
+<li>关键字用/##/注释截断：select转为sel/**/ect</li>
+<li>关键字用%00截断</li>
+<li>提交的HTTP包中，将x-originating-IP 改为127.0.0.1</li>
+<li>提交的HTTP包中，将X-remote-addr 改为127.0.0.1</li>
+<li>SQLMAP的各类TAMPER，挨个试一试吧</li>
+</ul>
+<h4 id="XSS变形"><a href="#XSS变形" class="headerlink" title="XSS变形"></a>XSS变形</h4><p>XSS变形最多，WAF漏报也是最严重的。谁让HTML可利用的标签那么多呢。<br>这一块的测试，有赖于测试者平时收集各类XSS payload 的量。我仅列出一部分常见的以供参考：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;embed/src=<span class="comment">//goo.gl/nlX0P&gt;</span></div><div class="line">&lt;object data=<span class="string">"data:text/html;base64,PHNjcmlwdD5hbGVydCgiSGVsbG8iKTs8L3NjcmlwdD4="</span>&gt;</div><div class="line">&lt;a onmouseover="javascript:window.onerror=alert;throw 1&gt;</div><div class="line">&lt;svg&gt;&lt;script&gt;varmyvar="YourInput";&lt;/script&gt;&lt;/svg&gt;</div><div class="line">&lt;s%00c%00r%00%00ip%00t&gt;confirm(0);&lt;/s%00c%00r%00%00ip%00t&gt;</div><div class="line">&lt;script&gt;//@cc_on!alert(1)/*@cc_on~alert(2)@*/&lt;/script&gt;</div><div class="line">&lt;marquee/onstart=confirm(2)&gt;/</div><div class="line">&lt;a/onmouseover[\x0b]=location=&amp;#039;\x6A\x61\x76\x61\x73\x63\x72\x69\x70\x74\x3A\x61\x6C\x65\x72\x74\x28\x30\x29\x3B&amp;#039;&gt;XSS</div></pre></td></tr></table></figure></p>
+<h4 id="文件包含绕过"><a href="#文件包含绕过" class="headerlink" title="文件包含绕过"></a>文件包含绕过</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data:text/plain;base64,ZGF0YTp0ZXh0L3BsYWluLDw/cGhwIHN5c3RlbSgnY2F0IC92YXIvd3d3L0ZpbGVJbmNsdWRlLnBocCcpPz4=</div></pre></td></tr></table></figure>
+<h4 id="文件上传绕过"><a href="#文件上传绕过" class="headerlink" title="文件上传绕过"></a>文件上传绕过</h4><p>文件上传绕过主要考虑几个方面：</p>
+<ul>
+<li>123.php.123</li>
+<li>123.asp;.gif</li>
+<li>as.php%00.gif</li>
+<li>文件开头添加GIF89a</li>
+<li>burpsuite抓包修改Content-Type: image/jpeg</li>
+</ul>
+<p>###0X03 扫描器防御能力<br>WAF应具备根据数据包特征识别扫描器的能力，并加以阻止。常见的扫描器，如WVS、SQLMAP、Netsparker、havij、Appscan都应该拿来实际测试WAF的反应。<br>需要说明的一点是，WAF不仅要拦截扫描器发来的数据包，还应在日志中注明，攻击者使用何种扫描器。这对运维人员分析日志很有帮助。<br>例如，实际测试中，Imperva对SQLMAP和Netsparker都可以准确识别。而F5的ASM则可以准确识别WVS和SQLMAP。FortiWeb则不具备这个能力。</p>
+<p>剩下几个章节，将讨论以下内容：</p>
+<ul>
+<li>Webshell通信拦截测试</li>
+<li>其余几个小功能点测试</li>
+<li>设备自身安全测试</li>
+<li>自学习模式测试</li>
+<li>WAF测试工具</li>
+<li>WAF 管理维护功能测试<br>未完待续</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;网络上很多同行都发文讨论过各种绕WAF的技巧，也有很多文章分享自研WAF的思路。&lt;br&gt;作为传统行业的甲方安全工程师，我试着写一写自己在WAF选型测试时的大体思路。&lt;br&gt;一方面，是对自己完成一个项目的总结，另一方面，也算是提供一个不同的视角看看WAF，希望对乙方朋友今后设计、优化WAF产品有一点点帮助。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="Imperva" scheme="http://www.lewisec.com/tags/Imperva/"/>
+    
+      <category term="WAF" scheme="http://www.lewisec.com/tags/WAF/"/>
+    
+      <category term="FortiWeb" scheme="http://www.lewisec.com/tags/FortiWeb/"/>
+    
+  </entry>
   
   <entry>
     <title>华为数据安全管理实践学习笔记</title>
@@ -915,56 +1000,6 @@
     
       <category term="读书笔记" scheme="http://www.lewisec.com/categories/IT%E7%82%B9%E6%BB%B4/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>12306泄露的弱口令</title>
-    <link href="http://www.lewisec.com/2014/12/26/12306pwd/"/>
-    <id>http://www.lewisec.com/2014/12/26/12306pwd/</id>
-    <published>2014-12-26T09:33:31.000Z</published>
-    <updated>2016-08-06T15:53:05.772Z</updated>
-    
-    <content type="html"><![CDATA[<p>12月25日，圣诞节，12306成了互联网的关键词，不过不是因为春运和订票，而是数据泄露。</p>
-<p>事件简单经过：</p>
-<p>某人在某论坛发帖，贴出一个14MB大小的txt文件，内容为用户名密码、姓名、手机号、邮箱等信息，发帖人说是从12306泄露出来的用户数据。共计13.1万条。</p>
-<p>接着，有人验证，该txt中的数据的确可登录用户的12306账户。也即，数据为真。</p>
-<p>网上不断泄露出更大的数据，但有网友下载验证后，证伪。</p>
-<p>12306官方辟谣，说官网并未被共计，数据并非从官网泄露。有大牛猜测，应为撞库得到的数据，所以密码是明文存储的。</p>
-<p>今天一早，警方证实已将泄露数据的“黑客”抓获归案。</p>
-<a id="more"></a>
-<p>这个14MB的数据很容易下载到，为了研究之用，也为了查看自己和家人朋友的数据是否泄露，我下载了一份。万幸，自己家人的信息没有包含在内，但一个朋友不幸中招。</p>
-<p>拿到数据之后，我把密码一列的数据单独拿出来分析了下。</p>
-<p>我统计了这13万条密码中，出现频率最高的TOP60。</p>
-<p>为什么要这么做呢？既然这份数据是撞库得来的，那么就是说，有这么多人在不同网站使用的密码都是一样的，这13万条中出现频率最高的TOP60，也可以认为是用户在不同网站使用的频率最高的密码。</p>
-<p>下面把这个list贴出来，看看你自己的密码会不会在里面。</p>
-<p>123456<br>a123456<br>123456a<br>5201314<br>111111<br>woaini1314<br>qq123456<br>123123<br>1qaz2wsx<br>1q2w3e4r<br>qwe123<br>7758521<br>123qwe<br>a123123<br>123456aa<br>woaini520<br>woaini<br>1314520<br>100200<br>woaini123<br>123321<br>123456789<br>123456789a<br>5211314<br>a123456789<br>z123456<br>asd123<br>asd123456<br>a5201314<br>aa123456<br>zhang123<br>aptx4869<br>123123a<br>1q2w3e4r5t<br>1qazxsw2<br>5201314a<br>123456qq<br>aini1314<br>q1w2e3r4<br>520520<br>iloveyou<br>111111a<br>110110<br>123456abc<br>w123456<br>123qweasd<br>qwer1234<br>a000000<br>qq123123<br>zxc123<br>12345678<br>qq5201314<br>as123456<br>1314521<br>love1314<br>123000<br>nihao123<br>753951<br>hao123<br>baobao520</p>
-<p>另外，下面三种组合方式，也是我简单目测看到最多的密码设置方式：<br>1.姓名缩写+生日组合比如，名叫wangjiawei，密码为 wjw900424<br>2.用自己qq号码、手机号码后八位做密码<br>3.名字汉语拼音</p>
-<p>从这个简单的分析不难看出，广大网民的安全意识还是有待提高的，密码设置还是太过简单。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;12月25日，圣诞节，12306成了互联网的关键词，不过不是因为春运和订票，而是数据泄露。&lt;/p&gt;
-&lt;p&gt;事件简单经过：&lt;/p&gt;
-&lt;p&gt;某人在某论坛发帖，贴出一个14MB大小的txt文件，内容为用户名密码、姓名、手机号、邮箱等信息，发帖人说是从12306泄露出来的用户数据。共计13.1万条。&lt;/p&gt;
-&lt;p&gt;接着，有人验证，该txt中的数据的确可登录用户的12306账户。也即，数据为真。&lt;/p&gt;
-&lt;p&gt;网上不断泄露出更大的数据，但有网友下载验证后，证伪。&lt;/p&gt;
-&lt;p&gt;12306官方辟谣，说官网并未被共计，数据并非从官网泄露。有大牛猜测，应为撞库得到的数据，所以密码是明文存储的。&lt;/p&gt;
-&lt;p&gt;今天一早，警方证实已将泄露数据的“黑客”抓获归案。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
-    
-    
-      <category term="12306" scheme="http://www.lewisec.com/tags/12306/"/>
-    
-      <category term="密码" scheme="http://www.lewisec.com/tags/%E5%AF%86%E7%A0%81/"/>
-    
-      <category term="弱口令" scheme="http://www.lewisec.com/tags/%E5%BC%B1%E5%8F%A3%E4%BB%A4/"/>
-    
-      <category term="泄露" scheme="http://www.lewisec.com/tags/%E6%B3%84%E9%9C%B2/"/>
     
   </entry>
   
