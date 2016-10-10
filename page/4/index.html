@@ -269,6 +269,130 @@
             
               
                 
+                <a class="post-title-link" href="/2014/04/08/openssl-heartbeat/" itemprop="url">
+                  OpenSSL的heartbeat漏洞，让各大网站“滴血”
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-08T18:16:10+08:00" content="2014-04-08">
+              2014-04-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/04/08/openssl-heartbeat/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/08/openssl-heartbeat/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>今天下午看到乌云知识库一位高人翻译一篇国外漏洞分析文章，重点分析OpenSSL的heartbeat漏洞。原文链接：<a href="http://drops.wooyun.org/papers/1381">猛戳这里</a></p>
+<p>简单说，攻击者对一台使用https登录的web服务器发送攻击数据包，在不需要任何身份认证或权限的情况下，就可以从服务器内存读取到最多64KB的数据。这些数据是随机出现的，可能是其他用户正常登录的cookie，也可能是用户名密码的<strong>明文，</strong>据说还有可能泄露私钥，但在我的测试过程中还没发现。</p>
+<p>由于漏洞和SSL的心跳包有关，因此有网友为这个漏洞叫做“心跳出血漏洞”。漏洞编号：CVE-2014-0160</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/04/08/openssl-heartbeat/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/03/29/whitehat-web-sec/" itemprop="url">
                   终于读完了《白帽子讲Web安全》
                 </a>
@@ -1378,132 +1502,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/12/08/人生处处是修行--读《释迦牟尼佛传》/" itemprop="url">
-                  人生处处是修行--读《释迦牟尼佛传》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-12-08T17:21:37+08:00" content="2013-12-08">
-              2013-12-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/慈悲之心/" itemprop="url" rel="index">
-                    <span itemprop="name">慈悲之心</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/12/08/人生处处是修行--读《释迦牟尼佛传》/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/08/人生处处是修行--读《释迦牟尼佛传》/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://ob7tq8bas.bkt.clouddn.com/sjmnfz.jpg" alt="" title="sjmnfz"></p>
-<p>花了半个多月的睡前时间，终于读完了这本284页的佛祖传记，收获良多。</p>
-<p>这本传记有几家出版社的不同版本，我读的是上海锦绣文章出版社的版本，为星云大师所著。佛学相关的传记、文化解读等书籍，还是建议选择出家大德所著的版本，毕竟出家人不妄语，对佛有恭敬心，内容上不会为了金钱利益胡编乱造。</p>
-<p>这本书从头到尾详细描述了佛陀自诞生、到为人生所困、出家修行直至菩提树下悟道、而后初转法轮创立佛教、继而广布佛音辛苦传道，最终涅槃的辉煌一生。如果你想了解佛陀是如何从乔达摩·悉达多成长为佛教教主的，这本书绝对是首选。</p>
-<p>除此之外，本书还会伴随着佛教创立过程而详细解释佛教的基本教义，如果你想真正了解这个智慧的宗教，这本书绝对适合当作入门读物。不过我的入门读物是圣严法师的佛学三书，那套书是采用一问一答的方式解惑答疑，严谨而朴素。这本传记相比那套书更富有趣味性，读起来不枯燥不晦涩。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2013/12/08/人生处处是修行--读《释迦牟尼佛传》/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1549,7 +1547,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-count">88</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
