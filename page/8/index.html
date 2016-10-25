@@ -269,6 +269,144 @@
             
               
                 
+                <a class="post-title-link" href="/2012/09/03/工业控制系统信息安全保护现状/" itemprop="url">
+                  工业控制系统信息安全保护现状
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-03T16:21:37+08:00" content="2012-09-03">
+              2012-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全相关/" itemprop="url" rel="index">
+                    <span itemprop="name">安全相关</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/03/工业控制系统信息安全保护现状/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/03/工业控制系统信息安全保护现状/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、工控系统安全现状"><a href="#一、工控系统安全现状" class="headerlink" title="一、工控系统安全现状"></a>一、工控系统安全现状</h2><p>谈到工业控制系统的信息安全，普遍意义上指的是数据采集与监控（SCADA）、分布式控制系统（DCS）、过程控制系统（PCS）、可编程逻辑控制器（PLC）的信息安全保护措施及安全管理。身在制造型企业，虽不会接触到所有上述工控系统，但有幸接触到某些常见的系统，对信息安全保护现状略有研究。</p>
+<p>先说说大趋势。自“Stuxnet”病毒兴风作浪之后，工业控制系统的安全保护问题一下子被拿到了桌面上。在2011年，工信部发布了451号文《关于加强工业控制系统信息安全管理的通知》，这应该是第一个对工控系统安全保护的技术要求、管理要求做了初步明确的文件。</p>
+<p>今年初，中国电子科技集团第六研究所受工信部委托，联合各行业协会也对各行业主要制造企业的工控系统安全现状做了摸底。不过至今为止还没看到任何建设建议或整改要求。不过好歹也是官方的、较大范围的行动了。可见国家的重视。</p>
+<p>企业现状：制造型企业一般来说，对工控系统的安全保护看重的是两点：</p>
+<p>-别感染病毒，系统别崩溃别宕机，保证生产稳定；</p>
+<p>-严格管理使用工控系统的电脑或者工控机的各类权限，机密信息别外泄。</p>
+<p>但由于之前多年来不重视不关注，面临的问题比较多：</p>
+<p>-使用工控系统的电脑大多不连接办公网，杀软特征库和系统补丁（包括操作系统补丁和工控系统自身补丁）几乎从不更新，甚至有些用户担心杀软和系统冲突，不安装杀毒软件。</p>
+<p>-工控系统究竟归属设计部门还是归属IT部门尚且混沌，配套管理自然缺失，没有备份恢复机制，没有定期审计。</p>
+<p>-没有适用的漏洞扫描技术做支撑。我看了下，Nessus 5.0.1（home feed）虽有针对SCADA的插件，但只有三项。</p>
+<p>针对这些问题，工信部的文件并没有给出具有可操作性的建议。ISO 27000系列、等保、分保也没有针对工控系统进行专项说明。企业实际操作起来困难重重。</p>
+<h2 id="二、初步解决措施"><a href="#二、初步解决措施" class="headerlink" title="二、初步解决措施"></a>二、初步解决措施</h2><p>结合我司实际状况，只能初步设计一些解决措施，但无法落地执行，记录如下以供备案。</p>
+<p>-严格切断工控系统与互联网、办公网的连接，单独组成lan，确保独立性，且禁止使用Wlan。</p>
+<p>-工控网络和办公网络进行数据交互时，使用专用U盘，每周杀毒一次。</p>
+<p>-每月定期由专人使用杀软离线更新包和系统补丁更新。</p>
+<p>-将工控系统的安全管理明确纳入公司整体安全管理范畴，责任定为设计部门。</p>
+<p>-设计一台专用服务器做工控系统数据的备份。</p>
+<p>-与工控系统供应商保持联系，定期更新工控系统补丁。</p>
+<p>-口令管理、日常审计、DLP均与普通办公网络完全一致。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/08/30/桌面图标整理软件－－Fences/" itemprop="url">
                   桌面图标整理软件－－Fences
                 </a>
@@ -1363,129 +1501,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/06/17/谈谈主动信息安全/" itemprop="url">
-                  谈谈主动信息安全
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-06-17T17:40:33+08:00" content="2012-06-17">
-              2012-06-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/安全相关/" itemprop="url" rel="index">
-                    <span itemprop="name">安全相关</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/06/17/谈谈主动信息安全/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/17/谈谈主动信息安全/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>“要建立主动式的信息安全！”</p>
-<p>这句口号不是IT提出的，是年初总裁喊出的响亮口号。他老人家这么一句话，IT可慌了神，究竟该如何解读这个“主动式安全”呢？恐怕这课题够当专题研究研究啦。安全团队为了承接这一任务，启动了年度项目－－主动式安全规划项目。说白了就是寻找适合的顾问资源，为企业设计信息安全体系，以回答这一大命题。具体项目内容和细节，我想可以在我离开这里的那一天，好好聊聊。今天主要说说我对这个口号的解读吧。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/06/17/谈谈主动信息安全/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1531,7 +1546,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">88</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1548,7 +1563,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">208</span>
+                <span class="site-state-item-count">211</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

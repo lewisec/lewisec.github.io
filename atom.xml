@@ -5,10 +5,58 @@
   <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2016-10-10T13:40:36.568Z</updated>
+  <updated>2016-10-25T15:24:06.173Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用python分析access日志</title>
+    <link href="http://www.lewisec.com/2016/10/25/%E4%BD%BF%E7%94%A8python%E5%88%86%E6%9E%90access%E6%97%A5%E5%BF%97/"/>
+    <id>http://www.lewisec.com/2016/10/25/使用python分析access日志/</id>
+    <published>2016-10-25T15:10:27.000Z</published>
+    <updated>2016-10-25T15:24:06.173Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在自学python，光看不练嘴把式，还是要多实操的。这就是一个写给自己的小小工具。<br>主要功能是，便利日志文件夹下的文件，根据设定的关键字查找是否有web攻击行为。</p>
+<a id="more"></a>
+<h3 id="0X01-背景"><a href="#0X01-背景" class="headerlink" title="0X01 背景"></a>0X01 背景</h3><p>WAF上线之后，处理最多的是误报消除。<br>产生误报有多种原因，比如web应用源码编写时允许客户端提交过多的cookie；比如单个参数提交的数值太大。<br>把误报降低到了可接受的范围后，还要关注漏报。WAF不是神，任何WAF都可能被绕过。所以还需要定位漏过的攻击，明确漏报的原因，才能update WAF的策略。<br>要定位漏报，就必须分析Web应用的访问日志了。一个站点，每天产生的access日志大概接近1GB，显然靠肉眼看是不现实的。这就需要用python帮助自动分析。</p>
+<h3 id="0X02-思路"><a href="#0X02-思路" class="headerlink" title="0X02 思路"></a>0X02 思路</h3><p>拿我司某Web系统举例：</p>
+<ul>
+<li>apache开启了access日志记录</li>
+<li>日志规则是每小时生成一个日志文件，以站点名称为文件名，以日期+时间为后缀。例如：special.XXXXXX.com.cn.2016101001</li>
+</ul>
+<p>要分析这些散碎的日志文件，我的思路如下：</p>
+<ol>
+<li>根据用户命令行输入获取日志文件所在目录；</li>
+<li>遍历目录下所有文件，合并到一个文件；</li>
+<li>定义web攻击常见payload的字符串：<ul>
+<li>SQLi的：select、union、+–+；</li>
+<li>Struts的：ognl、java</li>
+<li>webshell常见的：base64、eval、excute</li>
+</ul>
+</li>
+<li>使用正则逐行匹配，将命中的日志复制到单独的文件。</li>
+</ol>
+<h3 id="0X03-实现"><a href="#0X03-实现" class="headerlink" title="0X03 实现"></a>0X03 实现</h3><p>代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*-coding: utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> os,re,sys</div><div class="line"></div><div class="line"><span class="keyword">if</span> len(sys.argv) != <span class="number">2</span> :</div><div class="line">    <span class="keyword">print</span> <span class="string">'Usage : python logaudit.py &lt;path&gt;'</span></div><div class="line">    sys.exit()</div><div class="line"></div><div class="line">logpath = sys.argv[<span class="number">1</span>]</div><div class="line"></div><div class="line"><span class="comment">#获取输入参数的文件路径'</span></div><div class="line"></div><div class="line">merge = re.compile(<span class="string">r'.*(\d[10])'</span>)</div><div class="line"><span class="keyword">for</span> root , dirs , files <span class="keyword">in</span> os.walk(logpath):</div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> files:</div><div class="line">        <span class="comment">#遍历日志文件夹，合并所有内容到一个文件</span></div><div class="line">        pipei = merge.match(line)</div><div class="line">        <span class="keyword">if</span> pipei != <span class="keyword">None</span>:</div><div class="line">            tmppath = root + <span class="string">'\\'</span> +line</div><div class="line">            logread1 = open(tmppath,<span class="string">'r'</span>)</div><div class="line">            logread = logread1.read()</div><div class="line">            log2txt = open(<span class="string">'.\\log.txt'</span>,<span class="string">'a'</span>)</div><div class="line">            log2txt.write(logread)</div><div class="line">            log2txt.close()</div><div class="line">            logread1.close()</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            exit</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">log = open(<span class="string">'.//log.txt'</span>,<span class="string">'r'</span>)</div><div class="line"></div><div class="line"></div><div class="line">logread = log.readlines()</div><div class="line"></div><div class="line">auditString = re.compile(<span class="string">r'.*[^_][sS][eE][lL][eE][cC][tT][^.].*|.*[uU][nN][iI][Oo][nN].*|.*[bB][aA][sS][eE][^.].*|.*[oO][gG][nN][lL].*|.*[eE][vV][aA][lL][(].*|.*[eE][xX][cC][uU][tT][eE].*'</span>)</div><div class="line"></div><div class="line">writelog = open(<span class="string">'.//result.txt'</span>,<span class="string">'a'</span>)</div><div class="line"><span class="keyword">for</span> lines <span class="keyword">in</span> logread:</div><div class="line">    auditResult = auditString.match(lines)</div><div class="line">    <span class="keyword">if</span> auditResult != <span class="keyword">None</span>:</div><div class="line">        writelog.write(auditResult.group())</div><div class="line">        writelog.write(<span class="string">'\n'</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        exit</div><div class="line"></div><div class="line">writelog.close()</div><div class="line">log.close()</div></pre></td></tr></table></figure></p>
+<p>0X04 后续<br>WAF上线后的运维工作，除了消除误报解决漏报以外，还有其他更多的分析工作。这方面的内容，我会整理出来，下次单独成文分享。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在自学python，光看不练嘴把式，还是要多实操的。这就是一个写给自己的小小工具。&lt;br&gt;主要功能是，便利日志文件夹下的文件，根据设定的关键字查找是否有web攻击行为。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="Python" scheme="http://www.lewisec.com/tags/Python/"/>
+    
+      <category term="攻防" scheme="http://www.lewisec.com/tags/%E6%94%BB%E9%98%B2/"/>
+    
+      <category term="日志分析" scheme="http://www.lewisec.com/tags/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>从甲方的角度谈谈WAF测试方法--part2</title>
@@ -955,51 +1003,6 @@
       <category term="毛泽东" scheme="http://www.lewisec.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C/"/>
     
       <category term="毛泽东传" scheme="http://www.lewisec.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E4%BC%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>冬日下午茶</title>
-    <link href="http://www.lewisec.com/2015/01/17/black-tea/"/>
-    <id>http://www.lewisec.com/2015/01/17/black-tea/</id>
-    <published>2015-01-17T12:49:20.000Z</published>
-    <updated>2016-08-06T16:04:00.643Z</updated>
-    
-    <content type="html"><![CDATA[<p>搬家以后，因脚伤几乎足不出户，孩子不在身边，从奶爸彻底蜕化成了死宅。所以有时间给自己泡杯茶，也松快松快身心。</p>
-<a id="more"></a>
-<p>今天的茶是一友从日本回国时候带回来的，LUPICIA的牌子，汉译绿碧茶园，这一盒是阿萨姆+大吉岭的混合红茶。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/dajiling1.jpg" alt="" title="lupicia"></p>
-<p>50克装在锡纸包里，外面是漂亮的铁罐子，外观看起来很讨人喜欢。外包装上把投茶量、冲泡时间等冲泡方法说的很清楚。</p>
-<p>撕开锡纸包就能闻到红茶特有的甜香，干茶看起来有一点点碎。因为感冒，我不想泡太浓，所以投茶量比往常少了许多。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/dajiling2.jpg" alt="" title="gancha"></p>
-<p>烧开水，静置了几分钟，让开水的温度降低一些。红茶不比铁观音和岩茶，100゜沸水不太适合。盖碗泡上个半分钟以后出汤，茶汤的颜色确实让我吃惊不小。非常漂亮的琥珀色，有一点红酒的意思了。以前也泡过滇红、毛尖红茶和正山小种，茶汤普遍都是深红色和暗红色，类似熟普的那种深颜色，从视觉上就让人扣几分先。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/dajiling3.jpg" alt="" title="琥珀"></p>
-<p>最关键的还是入口嘛，这款茶入口以后不苦不涩，甜香不太高，回甘非常淡。味觉上显然没有达到视觉上那么惊艳的高度了。</p>
-<p>连续冲泡四五道之后，滋味明显变淡，弃之。</p>
-<p>忘了拍叶底的照片了，不谈叶底。</p>
-<p>总的说，这是一款外观出色、品质中庸的红茶，可能和我投茶量小有关吧，外貌党会喜欢上的，细品起来，还是略微有一点失望。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;搬家以后，因脚伤几乎足不出户，孩子不在身边，从奶爸彻底蜕化成了死宅。所以有时间给自己泡杯茶，也松快松快身心。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="七零八落" scheme="http://www.lewisec.com/categories/%E4%B8%83%E9%9B%B6%E5%85%AB%E8%90%BD/"/>
-    
-    
-      <category term="LUPICIA" scheme="http://www.lewisec.com/tags/LUPICIA/"/>
-    
-      <category term="下午茶" scheme="http://www.lewisec.com/tags/%E4%B8%8B%E5%8D%88%E8%8C%B6/"/>
-    
-      <category term="大吉岭" scheme="http://www.lewisec.com/tags/%E5%A4%A7%E5%90%89%E5%B2%AD/"/>
-    
-      <category term="红茶" scheme="http://www.lewisec.com/tags/%E7%BA%A2%E8%8C%B6/"/>
-    
-      <category term="绿碧茶园" scheme="http://www.lewisec.com/tags/%E7%BB%BF%E7%A2%A7%E8%8C%B6%E5%9B%AD/"/>
-    
-      <category term="阿萨姆" scheme="http://www.lewisec.com/tags/%E9%98%BF%E8%90%A8%E5%A7%86/"/>
     
   </entry>
   
