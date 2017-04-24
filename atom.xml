@@ -5,10 +5,98 @@
   <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2017-02-06T14:18:26.980Z</updated>
+  <updated>2017-04-24T07:56:09.292Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OWASP-TOP10-2017笔记</title>
+    <link href="http://www.lewisec.com/2017/04/24/OWASP-TOP10-2017%E7%AC%94%E8%AE%B0/"/>
+    <id>http://www.lewisec.com/2017/04/24/OWASP-TOP10-2017笔记/</id>
+    <published>2017-04-24T07:54:02.000Z</published>
+    <updated>2017-04-24T07:56:09.292Z</updated>
+    
+    <content type="html"><![CDATA[<p>OWASP公布了2017版本的TOP10的release版。新版变化还是比较大，紧跟当前安全技术趋势。<br>仔细读完了英文原版文件后，记录了一些笔记在这里，供参考。</p>
+<a id="more"></a>
+<h2 id="主要变化"><a href="#主要变化" class="headerlink" title="主要变化"></a>主要变化</h2><h3 id="CSRF减少"><a href="#CSRF减少" class="headerlink" title="CSRF减少"></a>CSRF减少</h3><ul>
+<li>首次出现于2007 TOP10</li>
+<li>很多框架包含自动CSRF防御</li>
+<li>开发人员对此的安全意识在提高<h3 id="新加入-：-攻击检测与防御不足"><a href="#新加入-：-攻击检测与防御不足" class="headerlink" title="新加入 ： 攻击检测与防御不足"></a>新加入 ： 攻击检测与防御不足</h3></li>
+<li>大量应用和API缺少基本的检测、防御、响应能力来对抗自动和手工攻击<h3 id="新加入-：-未保护的API"><a href="#新加入-：-未保护的API" class="headerlink" title="新加入 ： 未保护的API"></a>新加入 ： 未保护的API</h3></li>
+<li>变化主要为适应新技术：云、容器、API</li>
+<li>变化主要为适应软件开发过程中的自动化：敏捷开发、DevOps</li>
+<li>变化主要为适应第三方库和框架</li>
+<li>SOAP/XML, REST/JSON, RPC, GWT, etc.<h3 id="合并了两类-：-A4和A7，新名称失效的访问控制"><a href="#合并了两类-：-A4和A7，新名称失效的访问控制" class="headerlink" title="合并了两类 ： A4和A7，新名称失效的访问控制"></a>合并了两类 ： A4和A7，新名称失效的访问控制</h3></li>
+<li>2007年第一次分拆成了两类</li>
+<li>Insecure Direct Object Reference 关注与数据</li>
+<li>Missing Function Level Access Control 关注与功能<h3 id="删除了A10-：非法重定向"><a href="#删除了A10-：非法重定向" class="headerlink" title="删除了A10 ：非法重定向"></a>删除了A10 ：非法重定向</h3></li>
+</ul>
+<h2 id="内容解析"><a href="#内容解析" class="headerlink" title="内容解析"></a>内容解析</h2><h3 id="A1-Injection"><a href="#A1-Injection" class="headerlink" title="A1 Injection"></a>A1 Injection</h3><ul>
+<li>SQL, LDAP, XPath, or NoSQL queries; OS commands; XML parsers, SMTP Headers, expression languages, etc.</li>
+<li>XXE：禁用解释器</li>
+<li>SQLi：绑定变量或使用存储过程，避免动态查询</li>
+<li>避免方法：使用安全的API，避免使用解释器</li>
+<li>避免方法：如果参数化API不可用，应仔细过滤特殊符号，OWASP’s Java Encoder是一个可选方案</li>
+<li>避免方法：白名单，可参考OWASP’s ESAPI<h3 id="A2-Broken-Authentication-and-Session-Management"><a href="#A2-Broken-Authentication-and-Session-Management" class="headerlink" title="A2 Broken Authentication and Session Management"></a>A2 Broken Authentication and Session Management</h3></li>
+<li>授权凭据未散列或加密存储</li>
+<li>授权凭据可猜测或重写</li>
+<li>Session ID暴露在URL</li>
+<li>Session ID易被会话定点攻击  session fixation attack ？？？</li>
+<li>Session ID没有过期时间，或注销后未失效</li>
+<li>Session ID在成功登录后没有轮转 ？？？</li>
+<li>密码、Session ID和其他凭据明文发送</li>
+<li>避免方法：单一一套强壮的授权和会化管理控制<h3 id="A3-XSS"><a href="#A3-XSS" class="headerlink" title="A3 XSS"></a>A3 XSS</h3></li>
+<li>分成客户端XSS（DOM XSS） 和 服务器端XSS</li>
+<li>避免方法：转义 参考OWASP XSS Prevention Cheat Sheet</li>
+<li>避免方法：OWASP‘s AntiSamy</li>
+<li>避免方法：CSP<h3 id="A4-Broken-Access-Control"><a href="#A4-Broken-Access-Control" class="headerlink" title="A4 Broken Access Control"></a>A4 Broken Access Control</h3></li>
+<li>针对数据：应用和API使用了真实名称来生成页面，可猜到</li>
+<li>针对功能：URL和功能名称容易被猜到</li>
+<li>自动化工具一般测不出来，需要手工<h3 id="A5-Security-Misconfiguration"><a href="#A5-Security-Misconfiguration" class="headerlink" title="A5 Security Misconfiguration"></a>A5 Security Misconfiguration</h3></li>
+<li>利用：默认账户、未使用的页面、未打的补丁、未保护的文件与目录</li>
+<li>自动化扫描可发现</li>
+<li>造成原因：软件过期未打补丁</li>
+<li>造成原因：安装或启用了不必要的功能</li>
+<li>造成原因：默认账户和密码未修改</li>
+<li>造成原因：错误信息默认被显示</li>
+<li>造成原因：应用服务器、框架、库、数据库没有安全配置</li>
+<li>避免方法：流程控制部署过程</li>
+<li>避免方法：流程控制软件更新，包括所有库和组件</li>
+<li>避免方法：自动过程确认配置<h3 id="A6-Sensitive-Data-Exposure"><a href="#A6-Sensitive-Data-Exposure" class="headerlink" title="A6 Sensitive Data Exposure"></a>A6 Sensitive Data Exposure</h3></li>
+<li>利用：中间人攻击，盗取明文数据</li>
+<li>造成原因：未使用加密算法，或加密算法的密钥生成与密钥管理有缺陷</li>
+<li>避免方法：为重要数据设置合理正确的加密算法<h3 id="A7-Insufficient-Attack-Protection"><a href="#A7-Insufficient-Attack-Protection" class="headerlink" title="A7 Insufficient Attack Protection"></a>A7 Insufficient Attack Protection</h3></li>
+<li>检测攻击：非法行为（有害字符，有害频率）</li>
+<li>响应攻击：日志记录detail，自动阻止某IP或某IP段，禁用或监控某些异常账户</li>
+<li>快速打补丁：真实补丁或虚拟补丁<h3 id="A8-CSRF"><a href="#A8-CSRF" class="headerlink" title="A8 CSRF"></a>A8 CSRF</h3></li>
+<li>很多框架有CSRF防御措施：Spring、Play、Django、AngularJS</li>
+<li>所有cookie设置SameSite=strict标志<h3 id="A9-Using-Components-with-Known-Vulnerabilities"><a href="#A9-Using-Components-with-Known-Vulnerabilities" class="headerlink" title="A9 Using Components with Known Vulnerabilities"></a>A9 Using Components with Known Vulnerabilities</h3></li>
+<li>造成原因：开发者使用旧版本框架或库，甚至不关心版本</li>
+<li>造成原因：缺少连续监控组件的版本</li>
+<li>避免方法：连续监控版本，工具：versions、DependecyCheck、retire.js</li>
+<li>避免方法：连续监控公开漏洞库<h3 id="A10-Underprotected-APIs"><a href="#A10-Underprotected-APIs" class="headerlink" title="A10 Underprotected APIs"></a>A10 Underprotected APIs</h3></li>
+<li>测试方法：与普通功能一样，注入、认证、访问控制、加密、配置等</li>
+<li>避免方法：确保客户和API间通信是安全的</li>
+<li>避免方法：确保强加密</li>
+<li>避免方法：确保解析器抗攻击</li>
+<li>避免方法：对API做访问控制</li>
+<li>避免方法：保护不被注入任何形式的数据</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;OWASP公布了2017版本的TOP10的release版。新版变化还是比较大，紧跟当前安全技术趋势。&lt;br&gt;仔细读完了英文原版文件后，记录了一些笔记在这里，供参考。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="安全" scheme="http://www.lewisec.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>互联网企业安全高级指南读书笔记之二</title>
@@ -1004,54 +1092,6 @@
       <category term="浏览器" scheme="http://www.lewisec.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
     
       <category term="超卓" scheme="http://www.lewisec.com/tags/%E8%B6%85%E5%8D%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>河南博物院的“穿越之物”</title>
-    <link href="http://www.lewisec.com/2015/06/15/%E6%B2%B3%E5%8D%97%E5%8D%9A%E7%89%A9%E9%99%A2%E7%9A%84%E2%80%9C%E7%A9%BF%E8%B6%8A%E4%B9%8B%E7%89%A9%E2%80%9D/"/>
-    <id>http://www.lewisec.com/2015/06/15/河南博物院的“穿越之物”/</id>
-    <published>2015-06-15T03:32:39.000Z</published>
-    <updated>2016-08-07T15:02:23.989Z</updated>
-    
-    <content type="html"><![CDATA[<p>去西安玩，逛了逛陕西博物馆。去苏州玩，第一站就是苏州博物馆。可家门口的河南博物院我还从来没去过，说来还真有点遗憾。趁周末，补上了这一课。</p>
-<p>河南作为考古大省，也是文物大省，在河南省内挖掘到的文物大多陈列在省博物院，特别珍贵的国宝级文物转移去了国家博物院。覆盖的历史时期从夏商时期一直延绵到清朝。从文物数量和质量上，河南博物院都不输于任何一座省级博物馆。</p>
-<p>河南博物院地处郑州市北二环路上，也即农业路上。原来，坐BRT公交车去那里很方便，但最近农业路全线都在建设快速高架桥，路中间全部是正在施工的工地，通行能力只有正常时的1/3，很多公交车也都改了线，外地朋友建议还是打车去比较靠谱。</p>
-<p>在大门的东侧人工窗口或者自助机都可以凭身份证可以免费领取门卡，我去的时候是下午一点，整个博物院里人都很少，图的就是个清净。进入大厅以后，可以花费100元请导游讲解，也可以请义务讲解员，因为人太少，我还是租了个讲解器比较方便。</p>
-<p>从第一展厅开始就是新旧石器时代的古猿人留下的石器工具之类，和大多数博物馆比较类似，按时期划分了展厅。</p>
-<p>我不写流水账，这次玩儿个标题党，专门挑几件有意思的，让我们后人惊叹“原来古人还能造出这样器物”的文物来说说，这几件东西颇有点让人感觉好似穿越时代一般，挺有趣。</p>
-<p>先说第一件，距今5、6000千年前的，新时期时代的陶罐。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/X.jpg" alt="" title="X"></p>
-<p>这件陶罐最与众不同的，就是罐体上面古人手工制作了一个形似英文字母“X”的纹饰。我还记得小时候学数学第一次老师教着写方程式中的X，就是左边画半个圆圈，右边再画半个圆圈，闹了半天这是流传了5000年的写法啊，瞬间有一种“老祖宗真有文化”的幽默感，别说话，你感受一下 :-p</p>
-<p>第二件，是春秋时期的铜合页。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/heye.jpg" alt="" title="heye"></p>
-<p>记得在陕西博物馆曾看到过秦朝时制作的大量使用复杂机械的铜马车，河南博物院这件合页，可要比始皇时候的铜车还要早几百年。那时候的古人居然就已经可以制作出这么精细的合页来，不得不赞叹能工巧匠的高超！</p>
-<p>第三件，是汉代的母子孙印章。</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/yin.jpg" alt="" title="yin"></p>
-<p>所谓母子孙印章，就是一套印章，由三枚构成，每一枚都有单独的设计和内容。最小的印，恰好可以安放在中间印章的空腔内，而组合好的这两枚印章，又能完整的放入最大那枚印章里面，组成一个完整整体，好像祖孙三代在一起故而得名。</p>
-<p>每一枚印章制作都非常精细，汉代时的印章主要还是文件外头配合封泥用来在做文件密封之用，防止文件传输过程中被人私自打开，安全行业叫“中间人攻击”，所以那时候的印章普遍制作很小且十分精美。</p>
-<p>第四件，是两件一组啦，白菜和萝卜！</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/luobo.jpg" alt="" title="xiangya1"></p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/baicai.jpg" alt="" title="xiangya2"></p>
-<p>看着像真的吧？其实是用象牙雕刻而成的。大家都知道慈禧最喜欢的翡翠白菜，却大多不知道清朝还有类似的象牙萝卜和象牙白菜。只不过受限于象牙本身没有翡翠原石那么大，这两件宝贝的体积相对小了一些，知名度也小了许多。但这两件在雕刻技巧和制作精良方面，都和慈禧的翡翠白菜有异曲同工之妙。上面还都雕刻有小虫，连虫子腿上的肌理都分毫毕现，几乎人人来到这两件文物前，都会忍不住感慨不已。</p>
-<p>最后一件文物，还是和信仰有关。</p>
-<p>唐代的贝叶佛经！</p>
-<p><img src="http://ob7tq8bas.bkt.clouddn.com/beiyejing.jpg" alt="" title="fo"></p>
-<p>西安大慈恩寺里保存有玄奘法师从印度带回来的佛经，就是这种最原石的、刻在贝叶上的经文，而不是《西游记》里演的印刷在白纸上的佛经，掉水里还得在晒经石上晒干。古印度还没那么发达，佛经都是刻在植物叶子上的，而且都是梵文。</p>
-<p>只是不知道河南博物院保存的这片贝叶经，是不是玄奘法师带回来的那批。</p>
-<p>最后买一送一，来个纪录片。这也是我最近正在看的一部专门将郑州考古发现的纪录片：<a href="http://www.iqiyi.com/a_19rrhazyo5.html" target="_blank" rel="external">《商之都》</a></p>
-<p>热情的河南人民欢迎各位！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;去西安玩，逛了逛陕西博物馆。去苏州玩，第一站就是苏州博物馆。可家门口的河南博物院我还从来没去过，说来还真有点遗憾。趁周末，补上了这一课。&lt;/p&gt;
-&lt;p&gt;河南作为考古大省，也是文物大省，在河南省内挖掘到的文物大多陈列在省博物院，特别珍贵的国宝级文物转移去了国家博物院。覆盖的历
-    
-    </summary>
-    
-      <category term="七零八落" scheme="http://www.lewisec.com/categories/%E4%B8%83%E9%9B%B6%E5%85%AB%E8%90%BD/"/>
-    
     
   </entry>
   
