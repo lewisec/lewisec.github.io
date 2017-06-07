@@ -5,10 +5,39 @@
   <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2017-04-24T07:56:09.292Z</updated>
+  <updated>2017-06-07T02:39:00.800Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OWASPCheckList</title>
+    <link href="http://www.lewisec.com/2017/06/07/OWASPCheckList/"/>
+    <id>http://www.lewisec.com/2017/06/07/OWASPCheckList/</id>
+    <published>2017-06-07T02:14:36.404Z</published>
+    <updated>2017-06-07T02:39:00.800Z</updated>
+    
+    <content type="html"><![CDATA[<p>Checklist 非我原创，原文地址：<a href="https://github.com/jshaw87/Cheatsheets/blob/master/Cheatsheet_OWASPCheckList.txt" target="_blank" rel="external">github传送门</a></p>
+<a id="more"></a>
+<p>关于渗透测试，个人理解，由于测试目的不同，测试方法的选择也会略有差异。</p>
+<h3 id="以拿权限或拿数据为目的的渗透测试"><a href="#以拿权限或拿数据为目的的渗透测试" class="headerlink" title="以拿权限或拿数据为目的的渗透测试"></a>以拿权限或拿数据为目的的渗透测试</h3><p>有时客户需要渗透测试团队拿到服务器最高权限、或者，以拿到服务器上的敏感数据为目标，服务器数量越多越好，敏感数据拿到越多越好。<br>借由此证明安全防护尚有改善空间。<br>这时渗透团队需要尽可能快、尽可能多的找到突破口，并提权。<br>有些无法提权或者进一步利用的中低危漏洞，就不需要考虑太多了。</p>
+<h3 id="以全面安全评估为目的的渗透测试"><a href="#以全面安全评估为目的的渗透测试" class="headerlink" title="以全面安全评估为目的的渗透测试"></a>以全面安全评估为目的的渗透测试</h3><p>有时客户需要渗透测试团队综合评价待测试目标的安全健壮程度，并给出改善方案。<br>此类渗透测试更多的是为了后续改善加固做铺垫。<br>要求漏洞越多越好，越全面越好。<br>反倒是一些风险承受能力较低的客户，会提出要求，尽可能不要exploit漏洞，点到为止即可。</p>
+<p>这份checklist更偏向于第二类渗透测试，内容比较全面，参考价值较高。</p>
+<p><img src="http://ob7tq8bas.bkt.clouddn.com/Cheatsheet_OWASPCheckList.png" alt="Checklist"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Checklist 非我原创，原文地址：&lt;a href=&quot;https://github.com/jshaw87/Cheatsheets/blob/master/Cheatsheet_OWASPCheckList.txt&quot;&gt;github传送门&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="安全" scheme="http://www.lewisec.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>OWASP-TOP10-2017笔记</title>
@@ -1056,42 +1085,6 @@
       <category term="漏报" scheme="http://www.lewisec.com/tags/%E6%BC%8F%E6%8A%A5/"/>
     
       <category term="误报" scheme="http://www.lewisec.com/tags/%E8%AF%AF%E6%8A%A5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>凤凰工作室回归</title>
-    <link href="http://www.lewisec.com/2015/07/05/phoenixstudio/"/>
-    <id>http://www.lewisec.com/2015/07/05/phoenixstudio/</id>
-    <published>2015-07-05T09:57:31.000Z</published>
-    <updated>2016-08-07T15:15:26.071Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近比较令人激动的消息，就是凤凰工作室回归了！</p>
-<p>没错，就是当初出品TheWorld 世界之窗浏览器的那个凤凰工作室。</p>
-<p>至今我都认为，TheWorld是PC平台最好用的浏览器，没有之一。几年前360为了争夺入口，收购了凤凰工作室。团队所有成员全部成了360的员工，稍早一点的360全系列浏览器都是出自他们之手。</p>
-<p>后来有几位离开数字公司单独发展了。其中xiaoc成立团队开始做机顶盒的遥控器产品，名字叫做<a href="http://www.wukongtv.com/" target="_blank" rel="external">悟空遥控器</a>，发展的还不错。这次凤凰工作室原来的老大谢震宇带领另外一些成员恢复了“凤凰工作室”的名称，不仅有产品，还有<a href="http://www.phoenixstudio.org/filemanager/cn/" target="_blank" rel="external">官网</a>和<a href="http://bbs.phoenixstudio.org/" target="_blank" rel="external">论坛</a>。</p>
-<p>这次，凤凰工作室的主打产品是安卓系统下的文件管理器，名字叫超卓。我在魅族手机上装了体验了几次，界面简单，功能还比较初级。毕竟是1.0beta版本，还不能要求太高。</p>
-<p>另外，工作室未来还会发布安卓下的浏览器产品，名字叫星尘浏览器，希望这款产品可以继承TheWorld浏览器的优良传统，小巧，好用！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近比较令人激动的消息，就是凤凰工作室回归了！&lt;/p&gt;
-&lt;p&gt;没错，就是当初出品TheWorld 世界之窗浏览器的那个凤凰工作室。&lt;/p&gt;
-&lt;p&gt;至今我都认为，TheWorld是PC平台最好用的浏览器，没有之一。几年前360为了争夺入口，收购了凤凰工作室。团队所有成员全部成
-    
-    </summary>
-    
-      <category term="IT点滴" scheme="http://www.lewisec.com/categories/IT%E7%82%B9%E6%BB%B4/"/>
-    
-    
-      <category term="TheWorld" scheme="http://www.lewisec.com/tags/TheWorld/"/>
-    
-      <category term="凤凰工作室" scheme="http://www.lewisec.com/tags/%E5%87%A4%E5%87%B0%E5%B7%A5%E4%BD%9C%E5%AE%A4/"/>
-    
-      <category term="浏览器" scheme="http://www.lewisec.com/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
-    
-      <category term="超卓" scheme="http://www.lewisec.com/tags/%E8%B6%85%E5%8D%93/"/>
     
   </entry>
   
